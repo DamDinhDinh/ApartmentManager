@@ -87,7 +87,7 @@ class ApartmentController extends Controller
         $apartment->address = $request->address;
 
         if($apartment->save()){
-            return redirect()->route('apartment.index')->with('messages', ['Updated apartment: '.$apartment->name." address".$apartment->address]);
+            return redirect()->route('apartment.index')->with('messages', ['Updated apartment: '.$apartment->name." address: ".$apartment->address]);
         }else{
             return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
         }
@@ -101,6 +101,12 @@ class ApartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $apartment = Apartment::find($id);
+
+        if($apartment->delete()){
+            return redirect()->route('apartment.index')->with('messages', ['Deleted apartment: '.$apartment->name." address ".$apartment->address]);
+        }else{
+            return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
+        }
     }
 }

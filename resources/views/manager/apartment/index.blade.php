@@ -19,7 +19,13 @@
                         <td><a href="{{route('apartment.show', ['id' => $apartment->id])}}" >{{$apartment->name}}</a></td>
                         <td>{{$apartment->address}}</td>
                         <td><a href="{{route('apartment.edit', $apartment->id)}}" class="btn btn-warning">Sửa</a></td>
-                        <td><a onclick="return confirm('Chắc chắn xóa?')" href="{{route('apartment.destroy', $apartment->id)}}" class="btn btn-danger">Xóa</a></td>
+                        <td>
+                            <form method="POST" action="{{route('apartment.destroy', $apartment->id)}}">
+                                {{csrf_field()}}
+                                <button class="btn btn-danger"type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa</button>
+                                {{method_field("DELETE")}}
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             <table>
