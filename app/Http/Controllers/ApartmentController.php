@@ -43,7 +43,7 @@ class ApartmentController extends Controller
         $apartment->address = $request->address;
         
         if($apartment->save()){
-            return redirect()->route('apartment.index')->with('messages', ['Added apartment: '.$apartment->name]);
+            return redirect()->route('apartment.index')->with('messages', ['Added apartment: '.$apartment->name." address: ".$apartment->address]);
         }else{
             return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
         }
@@ -68,7 +68,9 @@ class ApartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $apartment = Apartment::find($id);
+
+        return view('manager.apartment.edit')->with('apartment', $apartment);
     }
 
     /**
@@ -78,9 +80,17 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApartmentRequest $request, $id)
     {
-        //
+        $apartment = Apartment::find($id);
+        $apartment->name = $request->name;
+        $apartment->address = $request->address;
+
+        if($apartment->save()){
+            return redirect()->route('apartment.index')->with('messages', ['Updated apartment: '.$apartment->name." address".$apartment->address]);
+        }else{
+            return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
+        }
     }
 
     /**
