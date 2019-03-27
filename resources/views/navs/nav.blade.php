@@ -17,7 +17,7 @@
                                 <a class="nav-link" href="#">Quản lý dịch vụ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Quản lý căn hộ</a>
+                                <a class="nav-link" href="{{route('apartment.index')}}">Quản lý căn hộ</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Quản lý cư dân</a>

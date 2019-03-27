@@ -22,9 +22,11 @@
 <body>
     <div id="app">
         @include('navs.nav')
-
         <main class="py-4">
             <div class="container">
+                @include('navs.error')
+                @include('navs.message')
+                @include('navs.failure')
                 @yield('content')
             </div>
         </main>
