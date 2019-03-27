@@ -43,7 +43,7 @@ class ApartmentController extends Controller
         $apartment->address = $request->address;
         
         if($apartment->save()){
-            return redirect()->route('apartment.index')->with('messages', ['Added apartment: '.$apartment->name." address: ".$apartment->address]);
+            return redirect()->route('apartment.index')->with('messages', ['CREATED apartment: '.$apartment->name." address: ".$apartment->address]);
         }else{
             return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
         }
@@ -57,7 +57,12 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $apartment = Apartment::find($id);
+        if($apartment != null){
+            return view('manager.apartment.show')->with('apartment', $apartment);
+        }else{
+            return redirect()->route('apartment.index')->with('failures', ['Invailid apartment ID']);
+        }
     }
 
     /**
@@ -70,7 +75,11 @@ class ApartmentController extends Controller
     {
         $apartment = Apartment::find($id);
 
-        return view('manager.apartment.edit')->with('apartment', $apartment);
+        if($apartment != null){
+            return view('manager.apartment.edit')->with('apartment', $apartment);
+        }else{
+            return redirect()->route('apartment.index')->with('failures', ['Invailid apartment ID']);
+        }  
     }
 
     /**
@@ -87,7 +96,7 @@ class ApartmentController extends Controller
         $apartment->address = $request->address;
 
         if($apartment->save()){
-            return redirect()->route('apartment.index')->with('messages', ['Updated apartment: '.$apartment->name." address: ".$apartment->address]);
+            return redirect()->route('apartment.index')->with('messages', ['UPDATED apartment: '.$apartment->name." address: ".$apartment->address]);
         }else{
             return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
         }
@@ -103,10 +112,14 @@ class ApartmentController extends Controller
     {
         $apartment = Apartment::find($id);
 
-        if($apartment->delete()){
-            return redirect()->route('apartment.index')->with('messages', ['Deleted apartment: '.$apartment->name." address ".$apartment->address]);
+        if($apartment != null){
+            if($apartment->delete()){
+                return redirect()->route('apartment.index')->with('messages', ['DELETED apartment: '.$apartment->name." address ".$apartment->address]);
+            }else{
+                return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
+            }
         }else{
-            return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
+            return redirect()->route('apartment.index')->with('failures', ['Invailid apartment ID']);
         }
     }
 }
