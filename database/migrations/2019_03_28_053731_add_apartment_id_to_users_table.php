@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApartmentsTable extends Migration
+class AddApartmentIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateApartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('apartments', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
-            $table->string('name');
-            $table->string('address');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('apartment_id')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateApartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('apartments');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('apartment_id');
+        });
     }
 }
