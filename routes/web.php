@@ -21,3 +21,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('apartment', 'ApartmentController');
+Route::get('/apartment/{apartment}/remove/{resident}', 'ApartmentController@removeResident')->name('apartment.removeResident');
+
+Route::resource('user', 'UserController');

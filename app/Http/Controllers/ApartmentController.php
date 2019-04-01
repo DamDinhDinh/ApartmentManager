@@ -122,4 +122,8 @@ class ApartmentController extends Controller
             return redirect()->route('apartment.index')->with('failures', ['Invailid apartment ID']);
         }
     }
+
+    public function removeResident($apartment, $resident){
+        
+    }
 }

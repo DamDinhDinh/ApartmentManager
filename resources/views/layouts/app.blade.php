@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
     @yield('header')
 </head>
 <body>
@@ -28,6 +30,7 @@
                 @include('navs.error')
                 @include('navs.message')
                 @include('navs.failure')
+
                 @yield('content')
             </div>
         </main>
