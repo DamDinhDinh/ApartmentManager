@@ -25,8 +25,17 @@
                         <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->name}}</a></td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->phoneNumber}}</td>
-                        <td>{{$user->type}}</td>
-                        <td><a href="" class="btn btn-warning">Sửa</a></td>
+                        @php
+                            if($user-> type == 3){
+                               echo "<td>User</td>";
+                            }else if($user->type == 2){
+                                echo "<td>Manager</td>";
+                            }else{
+                                echo "<td>Administrator</td>";
+                            }
+                        @endphp
+                        
+                        <td><a href="{{route('user.edit', $user->id)}}" class="btn btn-warning">Sửa</a></td>
                         <td>
                             <form method="POST" action="{{route('user.destroy', ['user' => $user->id, 'resident' => $user->id])}}">
                                 {{csrf_field()}}

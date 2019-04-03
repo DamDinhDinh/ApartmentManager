@@ -63,6 +63,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+
         return view('manager.user.show')->with('user', $user);
     }
 
@@ -74,7 +75,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('manager.user.edit')->with('user', $user);
     }
 
     /**
@@ -84,9 +87,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->phone_number = $request->phoneNumber;
+        $user->email = $request->email;
+        $user->type = $request->type;
+        
+        $user->password =  Hash::make($request->password);
+        // 
+        if($user->save()){
+            return redirect()->route('user.show', $user->id)->with('messages', ['UPDATED user: '.$user->name." phone number: ".$user->phone_number]); 
+        }else{
+            return redirect()->route('user.index')->with('failures', ['Can not excute!']);
+        }
     }
 
     /**
@@ -97,6 +112,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        if($user != null){
+            if($user->delete()){
+                return redirect()->route('user.index')->with('messages', ['DELETED user: '.$user->name." address ".$user->phone_number]);
+            }else{
+                return redirect()->route('user.index')->with('failures', ['Can not excute!']);
+            }
+        }else{
+            return redirect()->route('user.index')->with('failures', ['Invailid user ID']);
+        }
     }
 }
