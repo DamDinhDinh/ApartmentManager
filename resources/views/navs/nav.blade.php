@@ -20,7 +20,7 @@
                                 <a class="nav-link" href="{{route('apartment.index')}}">Quản lý căn hộ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Quản lý cư dân</a>
+                                <a class="nav-link" href="{{route('user.index')}}">Quản lý cư dân</a>
                             </li>
                 </ul>
 

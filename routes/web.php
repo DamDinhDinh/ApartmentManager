@@ -22,5 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('apartment', 'ApartmentController');
 Route::get('/apartment/{apartment}/remove/{resident}', 'ApartmentController@removeResident')->name('apartment.removeResident');
+Route::get('/apartment/{apartment}/addResident', 'ApartmentController@addResident')->name('apartment.addResident');
 
 Route::resource('user', 'UserController');

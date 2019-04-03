@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Apartment;
 use App\Http\Requests\ApartmentRequest;
 
+
 class ApartmentController extends Controller
 {
     /**
@@ -16,7 +17,6 @@ class ApartmentController extends Controller
     public function index()
     {
         $apartmentList = Apartment::orderBy('name', 'ASC')->paginate(10);
-
         return view('manager.apartment.index')->with('apartmentList', $apartmentList);
     }
 
@@ -124,6 +124,10 @@ class ApartmentController extends Controller
     }
 
     public function removeResident($apartment, $resident){
+        
+    }
+
+    public function addResident($apartment){
         
     }
 }

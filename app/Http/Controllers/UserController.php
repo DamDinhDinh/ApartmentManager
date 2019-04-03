@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -13,7 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::orderBy('name', 'ASC')->paginate(10);
+        return view('manager.user.index')->with('users', $users);
     }
 
     /**
@@ -23,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('manager.user.create');
     }
 
     /**
@@ -32,9 +37,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $user = new User;
+        $user->name = $request->name;
+        $user->phone_number = $request->phoneNumber;
+        $user->email = $request->email;
+        $user->type = $request->type;
+        
+        $user->password =  Hash::make($request->password);
+        // 
+        if($user->save()){
+            return redirect()->route('user.show', $user->id)->with('messages', ['CREATED user: '.$user->name." phone number: ".$user->phone_number]); 
+        }else{
+            return redirect()->route('user.index')->with('failures', ['Can not excute!']);
+        }
     }
 
     /**
@@ -45,7 +62,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('manager.user.show')->with('user', $user);
     }
 
     /**

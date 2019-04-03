@@ -12,8 +12,8 @@
                 <label class="col-md-2"for="apartmentAddressLabel">Nhập địa chỉ phòng</label>
                 <input type="text" class="form-control col-md-10" name="address" placeholder="VD: Nhà B, KTX Ngoại Ngữ">
         </div>
-        <div class="text-right">
-            <button class="btn btn-primary float-right" type="submit" id="btnSubmitCreateApartment">Thêm phòng</button>
+        <div class="text-right" style="margin-top: 10px">
+            <button class="btn btn-primary float-right" type="submit" id="btnSubmitCreateApartment">Thêm căn hộ</button>
         </div>
     </form>
 
