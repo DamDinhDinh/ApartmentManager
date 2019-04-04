@@ -37,7 +37,7 @@
                 <input type="password" class="form-control col-md-10" name="repeatPassword" placeholder="">
         </div>
         <div class="text-right" style="margin-top: 10px">
-            <button class="btn btn-primary float-right" type="submit" id="btnSubmitCreateApartment">Thêm người dùng</button>
+            <button class="btn btn-primary float-right" type="submit">Thêm người dùng</button>
         </div>
         
     </form>

@@ -25,3 +25,7 @@ Route::get('/apartment/{apartment}/remove/{resident}', 'ApartmentController@remo
 Route::get('/apartment/{apartment}/addResident', 'ApartmentController@addResident')->name('apartment.addResident');
 
 Route::resource('user', 'UserController');
+
+Route::resource('service', 'ServiceController');
+
+Auth::routes();

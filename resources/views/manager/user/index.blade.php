@@ -24,7 +24,7 @@
                         <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->id}}</a></td>
                         <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->name}}</a></td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->phoneNumber}}</td>
+                        <td>{{$user->phone_number}}</td>
                         @php
                             if($user-> type == 3){
                                echo "<td>User</td>";

@@ -14,7 +14,7 @@
                                 <a class="nav-link" href="#">Thông báo</a>
                             </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="#">Quản lý dịch vụ</a>
+                                <a class="nav-link" href="{{route('service.index')}}">Quản lý dịch vụ</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('apartment.index')}}">Quản lý căn hộ</a>
