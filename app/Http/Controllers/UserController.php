@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -116,7 +120,7 @@ class UserController extends Controller
 
         if($user != null){
             if($user->delete()){
-                return redirect()->route('user.index')->with('messages', ['DELETED user: '.$user->name." address ".$user->phone_number]);
+                return redirect()->route('user.index')->with('messages', ['DELETED user: '.$user->name." phone number ".$user->phone_number]);
             }else{
                 return redirect()->route('user.index')->with('failures', ['Can not excute!']);
             }
