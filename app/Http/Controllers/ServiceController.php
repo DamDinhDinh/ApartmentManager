@@ -8,9 +8,8 @@ Use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
+    public function __construct(){
+        $this->middleware('manager');
     }
     /**
      * Display a listing of the resource.

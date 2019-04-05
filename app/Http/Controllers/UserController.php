@@ -10,9 +10,8 @@ use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
+    public function __construct(){
+        $this->middleware('manager');
     }
     /**
      * Display a listing of the resource.

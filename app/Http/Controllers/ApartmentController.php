@@ -9,6 +9,9 @@ use App\Http\Requests\ApartmentRequest;
 
 class ApartmentController extends Controller
 {
+    public function __construct(){
+        $this->middleware('manager');
+    }
     /**
      * Display a listing of the resource.
      *
