@@ -66,8 +66,11 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-
-        return view('manager.user.show')->with('user', $user);
+        if($user != null){
+            return view('manager.user.show')->with('user', $user);
+        }else{
+            return redirect()->route('user.index')->with('failures', ['Invailid user ID']);
+        }
     }
 
     /**
@@ -80,7 +83,11 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return view('manager.user.edit')->with('user', $user);
+        if($user != null){
+            return view('manager.user.edit')->with('user', $user);
+        }else{
+            return redirect()->route('user.index')->with('failures', ['Invailid user ID']);
+        }
     }
 
     /**

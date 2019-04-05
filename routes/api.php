@@ -17,9 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::name('api.')->group(function (){
-    Route::apiResource('user', 'API\UserController');
+Route::post('/user/login', 'API\UserController@login')->name('api.user.login');
 
+Route::middleware('auth:api')->name('api.')->group(function (){
+    Route::apiResource('user', 'API\UserController');
+    Route::post('/user/logout', 'API\UserController@logout')->name('user.logout');
     Route::apiResource('apartment', 'API\ApartmentController');
 });
 
