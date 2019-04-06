@@ -55,7 +55,7 @@ class UserController extends Controller
 
     public function index(Request $request){
         $user_id = $request->user()->id;
-        $user = User::find($id);
+        $user = User::find($user_id);
 
         if($user != null){
             return new UserResource($user);
