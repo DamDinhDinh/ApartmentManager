@@ -63,7 +63,12 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $service = Service::find($id);
+        if($service != null){
+            return view('manager.service.show')->with('service', $service);
+        }else{
+            return redirect()->route('service.index')->with('failures', ['Invailid service ID']);
+        }
     }
 
     /**
@@ -74,7 +79,13 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Service::find($id);
+
+        if($service != null){
+            return view('manager.service.edit')->with('service', $service);
+        }else{
+            return redirect()->route('service.index')->with('failures', ['Invailid service ID']);
+        } 
     }
 
     /**
@@ -84,9 +95,15 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ServiceRequest $request, $id)
     {
-        
+        $service = Service::find($id);
+
+        if($service->update($request->all())){
+            return redirect()->route('service.show', $service->id)->with('messages', ['UPDATED service: '.$service->name." description: ".$service->description]); 
+        }else{
+            return redirect()->route('service.index')->with('failures', ['Can not excute!']);
+        }
     }
 
     /**
@@ -97,6 +114,16 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = Service::find($id);
+
+        if($service != null){
+            if($service->delete()){
+                return redirect()->route('service.index')->with('messages', ['DELETED service: '.$service->name]);
+            }else{
+                return redirect()->route('service.index')->with('failures', ['Can not excute!']);
+            }
+        }else{
+            return redirect()->route('service.index')->with('failures', ['Invailid service ID']);
+        }
     }
 }
