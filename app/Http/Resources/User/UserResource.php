@@ -16,11 +16,11 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone_number' => $this->phone_number,
+            'name' => $this->name != null ? $this->name : "null",
+            'email' => $this->email != null ? $this->email : "null",
+            'phone_number' => $this->phone_number != null ? $this->name : "null",
             'href' => [
-                'apartment' => route('api.apartment.show', ['id' => $this->apartment->id])
+                'apartment' => $this->apartment != null ? route('api.apartment.show', ['id' => $this->apartment->id]) : "null"
             ],
         ];
     }
