@@ -74,20 +74,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     $user = User::find($id);
+    public function show($id)
+    {
+        $user = User::find($id);
         
-    //     if($user != null){
-    //         return new UserResource($user);
-    //     }else{
-    //         $response = [
-    //             'error' => 'User ID not found'
-    //         ];
+        if($user != null){
+            return new UserResource($user);
+        }else{
+            $response = [
+                'error' => 'User ID not found'
+            ];
 
-    //         return response($response, 404);
-    //     }   
-    // }
+            return response($response, 404);
+        }   
+    }
 
     /**
      * Update the specified resource in storage.
