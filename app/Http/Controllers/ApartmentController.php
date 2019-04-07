@@ -126,11 +126,28 @@ class ApartmentController extends Controller
         }
     }
 
-    public function removeResident($apartment, $resident){
-        
+    public function removeResident($apartment, $user){
+        $user = User::find($user);
+        if($user != null){
+            if($user->apartment_id != null){
+                if($user->apartment_id == $apartment->id){
+                    $user->apartment_id = null;
+                }
+            }
+        }else{
+            return redirect()->route('apartment.show', $apartment)-with('failures', ['Invailid apartment ID']);
+        }
     }
 
     public function addResident($apartment){
+        
+    }
+
+    public function removeService($apartment, $user){
+        
+    }
+
+    public function addService($apartment){
         
     }
 }

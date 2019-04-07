@@ -4,7 +4,7 @@
     <div class="services-control-part">
         <div class="row" >
             <h3 style="margin: 22px" class="text-black font-weight-bold">Danh sách dịch vụ: </h3>
-            <a  style="margin: 22px" class="btn btn-primary" href="{{route('service.create')}}" >Thêm dịch vụ mới</a>
+            <a style="margin: 22px" class="btn btn-primary" href="{{route('service.create')}}" >Thêm dịch vụ mới</a>
         </div>
     </div>
     <div class="services-show-part">

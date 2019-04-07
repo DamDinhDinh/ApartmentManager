@@ -6,6 +6,12 @@
         <div class="head-show-part">
             <div class="row">
                 <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin căn hộ: </h3>
+                <a style="margin: 22px" href="{{route('apartment.edit', $apartment->id)}}" class="btn btn-warning">Sửa thông tin</a>
+                <form method="POST" action="{{route('apartment.destroy', $apartment->id)}}">
+                    {{csrf_field()}}
+                    <button style="margin: 22px" class="btn btn-danger" type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa căn hộ</button>
+                    {{method_field("DELETE")}}
+                </form>
             </div>
         </div>
         <div class="apartment -info-table">
@@ -28,6 +34,7 @@
         <div class="head-show-part">
             <div class="row">
                 <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin người dùng: </h3>
+                <a style="margin: 22px" class="btn btn-primary" href="{{route('apartment.addResident', $apartment->id)}}" >Thêm cư dân</a>
             </div>
         </div>
         <div class="user-info-table">
@@ -54,7 +61,7 @@
                     <td>{{$user->type}}</td>
                     <td><a href="" class="btn btn-warning">Move</a></td>
                     <td>
-                        <form method="POST" action="{{route('apartment.removeResident', ['apartment' => $apartment->id, 'resident' => $user->id])}}">
+                        <form method="POST" action="{{route('apartment.removeResident', ['apartment' => $apartment->id, 'id' => $user->id])}}">
                             {{csrf_field()}}
                             <button class="btn btn-danger"type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa</button>
                             {{method_field("DELETE")}}
@@ -73,6 +80,7 @@
         <div class="head-show-part">
             <div class="row">
                 <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin dịch vụ: </h3>
+                <a style="margin: 22px" class="btn btn-primary" href="{{route('apartment.addService', $apartment->id)}}" >Thêm dịch vụ</a>
             </div>
         </div>
     </div>

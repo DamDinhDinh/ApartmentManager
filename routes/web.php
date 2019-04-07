@@ -22,9 +22,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('apartment', 'ApartmentController');
-    Route::get('/apartment/{apartment}/remove/{resident}', 'ApartmentController@removeResident')->name('apartment.removeResident');
-    Route::get('/apartment/{apartment}/addResident', 'ApartmentController@addResident')->name('apartment.addResident');
-
+    Route::delete('/apartment/{apartment}/remove/resident/{user}', 'ApartmentController@removeResident')->name('apartment.removeResident');
+    Route::get('/apartment/{apartment}/add/service', 'ApartmentController@addResident')->name('apartment.addResident');
+    Route::get('/apartment/{apartment}/add/resident', 'ApartmentController@addService')->name('apartment.addService');
+    Route::delete('/apartment/{apartment}/remove/service/{service}', 'ApartmentController@removeService')->name('apartment.removeService');
 
 
     Route::resource('user', 'UserController');
