@@ -13,7 +13,7 @@ class CreateUsingServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('usingServices', function (Blueprint $table) {
+        Schema::create('using_services', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('apartment_id');
             $table->integer('service_id');

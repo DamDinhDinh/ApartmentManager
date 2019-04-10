@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Apartment;
 use App\Http\Requests\ApartmentRequest;
+use DB;
 
 
 class ApartmentController extends Controller
@@ -126,28 +127,25 @@ class ApartmentController extends Controller
         }
     }
 
-    public function removeResident($apartment, $user){
-        $user = User::find($user);
-        if($user != null){
-            if($user->apartment_id != null){
-                if($user->apartment_id == $apartment->id){
-                    $user->apartment_id = null;
-                }
-            }
+
+    public function search(Request $request){
+
+        $apartments = Apartment::where('name','LIKE','%'.$request->search.'%')->get();
+
+        if(count($apartments) > 0){
+            $response = [
+                'success' => true,
+                'data' => $apartments,
+            ];
+
+            return response($response);
         }else{
-            return redirect()->route('apartment.show', $apartment)-with('failures', ['Invailid apartment ID']);
+            $response = [
+                'success' => true,
+                'data' => 'none',
+            ];
+
+            return response($response);
         }
-    }
-
-    public function addResident($apartment){
-        
-    }
-
-    public function removeService($apartment, $user){
-        
-    }
-
-    public function addService($apartment){
-        
     }
 }

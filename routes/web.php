@@ -20,13 +20,21 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth'], function(){
-    Route::resource('apartment', 'ApartmentController');
-    Route::delete('/apartment/{apartment}/remove/resident/{user}', 'ApartmentController@removeResident')->name('apartment.removeResident');
-    Route::get('/apartment/{apartment}/add/service', 'ApartmentController@addResident')->name('apartment.addResident');
-    Route::get('/apartment/{apartment}/add/resident', 'ApartmentController@addService')->name('apartment.addService');
-    Route::delete('/apartment/{apartment}/remove/service/{service}', 'ApartmentController@removeService')->name('apartment.removeService');
 
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/apartment/search', 'ApartmentController@search')->name('apartment.search');
+    Route::resource('apartment', 'ApartmentController');
+    
+    Route::prefix('/apartment/{apartment}')->group(function(){
+        Route::get('/usingService/create', 'UsingServiceController@create')->name('usingService.create');
+        Route::post('/usingService/{usingService}', 'UsingServiceController@store')->name('usingService.store');
+        Route::delete('/usingService/{usingService}', 'UsingServiceController@destroy')->name('usingService.destroy');
+    
+        Route::post('/add/resident', 'ResidentController@store')->name('resident.store');
+        Route::delete('/delete/resident', 'ResidentController@destroy')->name('resident.destroy');
+    });
+
+    
 
     Route::resource('user', 'UserController');
 

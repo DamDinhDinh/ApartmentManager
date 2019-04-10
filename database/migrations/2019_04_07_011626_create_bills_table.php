@@ -16,15 +16,15 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
             $table->text('name');
-            $table->integer('payment_id');
-            $table->integer('service_id');
-            $table->string('service_name');
+            $table->integer('user_id');
+            $table->integer('usingService_id');
             $table->integer('amount');
             $table->float('cost');
             $table->float('discount');
             $table->float('vat');
             $table->float('sum');
             $table->integer('status');
+            $table->integer('paid_method');
             $table->dateTime('paid_date');
             $table->timestamps();
         });

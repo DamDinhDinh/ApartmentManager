@@ -34,7 +34,7 @@
         <div class="head-show-part">
             <div class="row">
                 <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin người dùng: </h3>
-                <a style="margin: 22px" class="btn btn-primary" href="{{route('apartment.addResident', $apartment->id)}}" >Thêm cư dân</a>
+                <a style="margin: 22px" class="btn btn-primary" href="{{route('resident.create', $apartment->id)}}" >Thêm cư dân</a>
             </div>
         </div>
         <div class="user-info-table">
@@ -57,11 +57,11 @@
                     <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->id}}</a></td>
                     <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->name}}</a></td>
                     <td>{{$user->email}}</td>
-                    <td>{{$user->phoneNumber}}</td>
+                    <td>{{$user->phone_number}}</td>
                     <td>{{$user->type}}</td>
                     <td><a href="" class="btn btn-warning">Move</a></td>
                     <td>
-                        <form method="POST" action="{{route('apartment.removeResident', ['apartment' => $apartment->id, 'id' => $user->id])}}">
+                        <form method="POST" action="{{route('resident.destroy', ['apartment' => $apartment->id, 'id' => $user->id])}}">
                             {{csrf_field()}}
                             <button class="btn btn-danger"type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa</button>
                             {{method_field("DELETE")}}
@@ -80,7 +80,7 @@
         <div class="head-show-part">
             <div class="row">
                 <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin dịch vụ: </h3>
-                <a style="margin: 22px" class="btn btn-primary" href="{{route('apartment.addService', $apartment->id)}}" >Thêm dịch vụ</a>
+                <a style="margin: 22px" class="btn btn-primary" href="{{route('usingService.create', $apartment->id)}}" >Thêm dịch vụ</a>
             </div>
         </div>
     </div>
