@@ -100,7 +100,11 @@ class UserController extends Controller
     {
         $user_id = $request->user()->id;
         $user = User::find($user_id);
-
+        
+        if($request->password != null){
+            $request->password = Hash::make($request->password);
+        }
+        
         $user->update($request->all());
         return $user = User::find($user_id);;
     }

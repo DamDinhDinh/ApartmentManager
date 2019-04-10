@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'email' => 'required',
             'type' => 'required',
             'password' => 'required',
-            'repeatPassword' => 'required'
+            'repeatPassword' => 'required|same:password'
         ];
     }
 }

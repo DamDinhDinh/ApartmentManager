@@ -114,6 +114,7 @@ class ApartmentController extends Controller
      */
     public function destroy($id)
     {
+
         $apartment = Apartment::find($id);
 
         if($apartment != null){

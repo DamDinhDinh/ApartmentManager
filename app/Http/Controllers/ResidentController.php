@@ -125,8 +125,50 @@ class ResidentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            'apartment' => 'required|int',
+            'resident' => 'required|int'
+        ]);
+
+        $apartmentID = $request->apartment;
+        $id = $request->resident;
+
+        $user = User::find($id);
+        $user->apartment_id = null;
+        if(($user) != null){
+            if($user->save()){
+                if(!$request->ajax()){
+                    return redirect()->route('apartment.show', $apartmentID)->with('messages', ['DELETED user']);
+                }
+                $response = [
+                    'success' => true,
+                    'message' => 'Delete service'
+                ];
+    
+                return response($response);
+            }else{
+                if(!$request->ajax()){
+                    return redirect()->route('apartment.show', $apartmentID)->with('failures', ['Can not excute!']);
+                }
+                $response = [
+                    'error' => true,
+                    'errorType' => 3,
+                    'message' => 'Can not excute',
+                ];
+            }
+        }else{
+            if(!$request->ajax()){
+                return redirect()->route('apartment.show', $apartmentID)-with('failures', ['Invailid user ID']);
+            }
+            $response = [
+                'error' => true,
+                'errorType' => 1,
+                'message' => 'Invailid service id or apartment id',
+            ];
+
+            return response($response);
+        }
     }
 }

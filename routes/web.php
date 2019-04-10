@@ -26,18 +26,21 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('apartment', 'ApartmentController');
     
     Route::prefix('/apartment/{apartment}')->group(function(){
-        Route::get('/usingService/create', 'UsingServiceController@create')->name('usingService.create');
-        Route::post('/usingService/{usingService}', 'UsingServiceController@store')->name('usingService.store');
-        Route::delete('/usingService/{usingService}', 'UsingServiceController@destroy')->name('usingService.destroy');
-    
-        Route::post('/add/resident', 'ResidentController@store')->name('resident.store');
-        Route::delete('/delete/resident', 'ResidentController@destroy')->name('resident.destroy');
+        Route::prefix('/add')->group(function (){
+            Route::post('/resident', 'ResidentController@store')->name('resident.store');
+            Route::post('/usingService', 'UsingServiceController@store')->name('usingService.store');
+        });
+
+        Route::prefix('/delete')->group(function (){
+            Route::delete('/resident', 'ResidentController@destroy')->name('resident.destroy');
+            Route::delete('/usingService', 'UsingServiceController@destroy')->name('usingService.destroy');
+        });
     });
 
-    
-
+    Route::get('/user/search', 'UserController@search')->name('user.search');
     Route::resource('user', 'UserController');
-
+    
+    Route::get('/service/search', 'ServiceController@search')->name('service.search');
     Route::resource('service', 'ServiceController');
     
 });

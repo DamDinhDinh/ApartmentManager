@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 Use App\Http\Requests\ServiceRequest;
+Use App\Http\Resources\Service\ServiceCollection;
 
 class ServiceController extends Controller
 {
@@ -124,6 +125,26 @@ class ServiceController extends Controller
             }
         }else{
             return redirect()->route('service.index')->with('failures', ['Invailid service ID']);
+        }
+    }
+
+    public function search(Request $request){
+        $services = Service::where('name','LIKE','%'.$request->search.'%')->get();
+        $services = ServiceCollection::collection($services);
+        if(count($services) > 0){
+            $response = [
+                'success' => true,
+                'data' => $services,
+            ];
+
+            return response($response);
+        }else{
+            $response = [
+                'success' => true,
+                'data' => 'none',
+            ];
+
+            return response($response);
         }
     }
 }

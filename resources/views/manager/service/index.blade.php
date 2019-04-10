@@ -27,7 +27,7 @@
                         @php
                             if($service->payment_method == 1){
                                echo "<td>Theo tháng</td>";
-                            }else if($service->type == 2){
+                            }else if($service->payment_method == 2){
                                 echo "<td>Theo ngày</td>";
                             }else{
                                 echo "<td></td>";

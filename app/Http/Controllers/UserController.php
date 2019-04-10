@@ -7,6 +7,8 @@ use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserCollection;
 
 class UserController extends Controller
 {
@@ -132,6 +134,26 @@ class UserController extends Controller
             }
         }else{
             return redirect()->route('user.index')->with('failures', ['Invailid user ID']);
+        }
+    }
+
+    public function search(Request $request){
+        $users = User::where('name','LIKE','%'.$request->search.'%')->get();
+        // $users = UserCollection::collection($users);
+        if(count($users) > 0){
+            $response = [
+                'success' => true,
+                'data' => $users,
+            ];
+
+            return response($response);
+        }else{
+            $response = [
+                'success' => true,
+                'data' => 'none',
+            ];
+
+            return response($response);
         }
     }
 }
