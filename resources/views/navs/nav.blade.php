@@ -16,6 +16,10 @@
                                 <li class="nav-item">
                                 <a class="nav-link" href="{{route('service.index')}}">Quản lý dịch vụ</a>
                             </li>
+                            </li>
+                                <li class="nav-item">
+                                <a class="nav-link" href="{{route('usingService.index')}}">Dịch vụ đang được sử dụng</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('apartment.index')}}">Quản lý căn hộ</a>
                             </li>

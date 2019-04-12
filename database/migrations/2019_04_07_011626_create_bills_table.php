@@ -17,7 +17,7 @@ class CreateBillsTable extends Migration
             $table->increments('id');
             $table->text('name');
             $table->integer('user_id');
-            $table->integer('usingService_id');
+            $table->integer('use_data_id');
             $table->integer('amount');
             $table->float('cost');
             $table->float('discount');

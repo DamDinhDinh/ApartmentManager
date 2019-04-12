@@ -97,11 +97,12 @@
                 <tr>
                     <th width="5%">ID</th>
                     <th width="20%">Tên dịch vụ</th>
-                    <th width="20%">Phương thức thanh toán</th>
-                    <th width="20%">Số lượng sử dụng</th>
+                    <th width="10%">Phương thức thanh toán</th>
+                    <th width="10%">Số lượng sử dụng</th>
                     <th width="10%">Giá</th>
-                    <th width="35%">Mô tả</th>
-                    <th width="10%">Hủy dịch vụ</th>  
+                    <th width="20%">Ngày bắt đầu</th>
+                    <th width="20%">Ngày hết hạn</th>
+                    <th width="5%">Hủy dịch vụ</th>  
                 </tr>
                 @php
                     $usingServices = $apartment->usingServices;
@@ -132,7 +133,8 @@
                             }
                         @endphp
                         <td>{{$service->price}}</td>
-                        <td>{{$service->description}}</td>
+                        <td>{{date('d/m/Y', strtotime($usingServices[$i]->start_date))}}</td>
+                        <td>{{date('d/m/Y', strtotime($usingServices[$i]->expire_date))}}</td>
                         <td>
                             <form method="POST" action="{{route('usingService.destroy', $apartment->id)}}">
                                 {{csrf_field()}}

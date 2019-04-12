@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Apartment;
 use App\Service;
+use App\Model\UseData;
 
 class UsingService extends Model
 {
@@ -15,4 +16,5 @@ class UsingService extends Model
     public function service(){
         return $this->belongsTo(Service::class);
     }
+
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUseDataTable extends Migration
+class AddColumTypeToServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateUseDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('use_data', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
-            $table->integer('usingService_id');
-            $table->float('use_value');
-            $table->date('use_date');
-            $table->timestamps();
+        Schema::table('services', function (Blueprint $table) {
+            $table->integer('type')->beforeColum('price');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateUseDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('use_data_');
+        Schema::table('services', function (Blueprint $table) {
+            $table->dropColumn('type');
+        });
     }
 }

@@ -42,6 +42,11 @@ Route::group(['middleware' => 'auth'], function(){
     
     Route::get('/service/search', 'ServiceController@search')->name('service.search');
     Route::resource('service', 'ServiceController');
+
+    Route::get('/usingService', 'UsingServiceController@index')->name('usingService.index');
+    Route::get('/usingService/show/{id}', 'UsingServiceController@show')->name('usingService.show');
+    Route::get('/usingService/create', 'UsingServiceController@create')->name('usingService.create');
+    Route::post('/usingService', 'UsingServiceController@store')->name('usingService.store1');
     
 });
 

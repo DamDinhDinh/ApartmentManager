@@ -18,7 +18,9 @@ class UsingServiceController extends Controller
      */
     public function index()
     {
-        //
+        $usingServices = UsingService::all();
+
+        return view('manager.usingService.index')->with('usingServices', $usingServices);
     }
 
     /**
@@ -28,7 +30,7 @@ class UsingServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('manager.usingService.create');
     }
 
     /**
@@ -59,6 +61,9 @@ class UsingServiceController extends Controller
             $usingService->expire_date = Carbon::now();
 
             if($usingService->save()){
+                if(!$request->ajax()){
+                    return back()->with('messages', ['ADDED service']);
+                }
                 $response = [
                     'success' => true,
                     'message' => 'Added service'
@@ -66,6 +71,9 @@ class UsingServiceController extends Controller
     
                 return response($response);
             }else{
+                if(!$request->ajax()){
+                    return back()->with('failures', ['Can not excute!']);
+                }
                 $response = [
                     'error' => true,
                     'errorType' => 3,
@@ -73,6 +81,9 @@ class UsingServiceController extends Controller
                 ];
             }
         }else{
+            if(!$request->ajax()){
+                return back()->with('failures', ['Invailid apartment ID or service ID']);
+            }
             $response = [
                 'error' => true,
                 'errorType' => 1,
@@ -91,7 +102,12 @@ class UsingServiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $usingService = UsingService::find($id);
+        if($usingService != null){
+            return view('manager.usingService.show')->with('usingService', $usingService);
+        }else{
+            return back()->with('failures', ['Invailid using service ID']);
+        }
     }
 
     /**
@@ -137,7 +153,7 @@ class UsingServiceController extends Controller
         if(($usingService) != null){
             if($usingService->delete()){
                 if(!$request->ajax()){
-                    return redirect()->route('apartment.show', $apartmentID)->with('messages', ['DELETED service']);
+                    return back()->with('messages', ['DELETED service']);
                 }
                 $response = [
                     'success' => true,
@@ -147,7 +163,7 @@ class UsingServiceController extends Controller
                 return response($response);
             }else{
                 if(!$request->ajax()){
-                    return redirect()->route('apartment.show', $apartmentID)->with('failures', ['Can not excute!']);
+                    return back()->with('failures', ['Can not excute!']);
                 }
                 $response = [
                     'error' => true,
@@ -157,7 +173,7 @@ class UsingServiceController extends Controller
             }
         }else{
             if(!$request->ajax()){
-                return redirect()->route('apartment.show', $apartmentID)-with('failures', ['Invailid using service ID']);
+                return back()->with('failures', ['Invailid using service ID']);
             }
             $response = [
                 'error' => true,
