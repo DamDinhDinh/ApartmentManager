@@ -11,6 +11,13 @@
         <div class="row">
             <label class="col-md-2"for="servicePrice">Giá tiền: </label>
             <input type="number" class="form-control col-md-10" name="price" value="{{$service->price}}">
+				</div>
+				<div class="row">
+          <label style="margin: 10px 0px 0px 0px" class="col-md-2" for="serviceType">Loại dịch vụ: </label>
+          <div class="radio" style="padding: 6px 12px">
+            <label style="margin: 10px 10px 0px 0px"><input value="1" type="radio" for="typeOptionRadio" name="type" {{$service->type == 1 ? "checked": ""}}>Mặc định</label>
+            <label style="margin: 10px 10px 0px 0px"><input value="2" type="radio" for="typeOptionRadio" name="type" {{$service->type == 2 ? "checked": ""}}>Tùy chọn</label>
+          </div>
         </div>
                 <div class="row">
                 <label style="margin: 10px 0px 0px 0px" class="col-md-2" for="serviceType">Phương thức thanh toán: </label>

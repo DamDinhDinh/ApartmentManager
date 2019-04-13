@@ -15,7 +15,7 @@ class CreateUseDataTable extends Migration
     {
         Schema::create('use_data', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->integer('usingService_id');
+            $table->integer('using_service_id');
             $table->float('use_value');
             $table->date('use_date');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateUseDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('use_data_');
+        Schema::dropIfExists('use_data');
     }
 }

@@ -17,21 +17,38 @@
 	</div>
     <form class="form" method="POST" action="{{route('usingService.store1')}}">
         {{csrf_field()}}
-        <div class="row">
-        <label class="col-md-2" for="apartmentID">Chọn căn hộ: </label>
+        <div class="row form-group">
+        	<label class="col-md-2" for="apartmentID">Chọn căn hộ: </label>
             <select class="form-control" name="apartment" id="selectApartmentInput">
               
             </select>
 				</div>
 
-				<label class="col-md-2" for="serviceID">Chọn dịch vụ: </label>
-            <select class="form-control" name="service" id="selectServiceInput">
-              
-            </select>
-        </div>
-        <div class="text-right" style="margin-top: 10px">
-            <button class="btn btn-primary float-right" type="submit">Thực hiện</button>
-        </div>
+				<div class="row form-group">
+					<label class="col-md-2" for="serviceID">Chọn dịch vụ: </label>
+							<select class="form-control" name="service" id="selectServiceInput">
+								
+							</select>	
+				</div>
+
+				<div class="row form-group">
+					<label class="col-md-2" for="useDate">Ngày bắt đầu:  </label>
+					<input name="start_date" type="date" value="{{date("Y-m-d", time())}}">
+				</div>
+
+				<div class="row form-group">
+					<label for="useValue">Số lượng sử dụng(với dịch vụ có số lượng không đổi)/Trị số ban đầu (với dịch vụ có số lượng thay đổi): </label>
+					<input class="form-control" name="use_value" type="number">
+				</div>
+
+				<div class="row form-group">
+					<label class="col-md-2" for="useDate">Số lượng/Trị số  trên là của tháng:  </label>
+					<input name="use_date" type="date" value="{{date("Y-m-d", time())}}">
+				</div>
+
+					<div class="text-right" style="margin-top: 10px">
+							<button class="btn btn-primary float-right" type="submit">Thực hiện</button>
+					</div>
     </form>	
 
 @endsection  
@@ -82,7 +99,7 @@
 
 			function loadSelectApartment(data, num){
 				for(var i = 0; i < num; i++){
-					$('#selectApartmentInput').append(new Option(data[i].name, data[i].id));
+					$('#selectApartmentInput').addClass("selectorApartmentElement").append(new Option(data[i].name, data[i].id));
 				}
 			}
 
@@ -109,12 +126,7 @@
           	console.log(response);
             var data = response.data;
             if(data != 'none'){
-							length = data.length;
-							if(length > 5){
-								loadSelectService(data, 5);
-							}else{
-								loadSelectService(data, length);
-							}
+							loadSelectService(data);
             }else{
 							message = "Không tìm thấy kêt quả";
 							type = "text-danger";
@@ -127,16 +139,24 @@
 				});
 			}
 
-			function loadSelectService(data, num){
+			function loadSelectService(data){
+				length = data.length;
+				id = "#selectServiceInput";
+				if(length > 5){
+					loadSelect(id, data, 5);
+				}else{
+					loadSelect(id, data, length);
+				}
+			}
+
+			function loadSelect(id, data, num){
 				for(var i = 0; i < num; i++){
-					$('#selectServiceInput').append(new Option(data[i].name, data[i].id));
+					$(id).addClass("selectorServiceElement").append(new Option(data[i].name, data[i].id));
 				}
 			}
 
 			function loadSearchServiceMessage(message, type){
 				$('#searchMessageP').addClass(type).text(message);
 			}
-
-			
 		</script>
 @endsection

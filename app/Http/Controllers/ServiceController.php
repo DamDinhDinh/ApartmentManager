@@ -99,8 +99,15 @@ class ServiceController extends Controller
     public function update(ServiceRequest $request, $id)
     {
         $service = Service::find($id);
+        $service->name = $request->name;
+        $service->price = $request->price;
+        $service->type = $request->type;
+        $service->payment_method = $request->payment_method;
+        $service->use_method = $request->use_method;
+        $service->description = $request->description;
 
-        if($service->update($request->all())){
+
+        if($service->save()){
             return redirect()->route('service.show', $service->id)->with('messages', ['UPDATED service: '.$service->name." description: ".$service->description]); 
         }else{
             return redirect()->route('service.index')->with('failures', ['Can not excute!']);

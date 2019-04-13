@@ -8,6 +8,7 @@ Use App\Apartment;
 use App\UsingService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request as Request1;
+use App\Model\UseData;
 
 class UsingServiceController extends Controller
 {
@@ -43,34 +44,71 @@ class UsingServiceController extends Controller
     {
         $request->validate([
             'apartment' => 'required|int',
-            'service' => 'required|int'
+            'service' => 'required|int',
+            'start_date' => 'required|date',
+            'use_value' => 'required|int',
+            'use_date' => 'required|date',
         ]);
 
         $serviceID = $request->service;
         $apartmentID = $request->apartment;
-        
         $apartment = Apartment::find($apartmentID);
         $service = Service::find($serviceID);
-        $usingService = new UsingService;
 
         if(($service && $apartment) != null){
             $usingService = new UsingService;
             $usingService->service_id = $serviceID;
             $usingService->apartment_id = $apartmentID;
-            $usingService->start_date = Carbon::now();
-            $usingService->expire_date = Carbon::now();
+            $usingService->start_date = $request->start_date;
+
+            if($usingService->service->payment_method ==  1 && $usingService->service->use_method == 1){
+                if($usingService->service->use_method == 1){
+                    $usingService->expire_date = $request->start_date;
+                    //create bill
+                }else if($usingService->service->use_method == 2){
+                    $expire = Carbon::parse($request->start_date);
+                    $expire->addDays(30);
+                    $usingService->expire_date = $expire;
+                }
+                
+                
+            }else if($usingService->service->payment_method ==  2){
+                if($usingService->service->use_method == 1){
+                    $usingService->expire_date = $request->start_date;
+                    //create bill
+                }else if($usingService->service->use_method == 2){
+                    $expire = Carbon::parse($request->start_date);
+                    $expire->addDays(1);
+                    $usingService->expire_date = $expire;
+                }
+            }
 
             if($usingService->save()){
                 if(!$request->ajax()){
-                    return back()->with('messages', ['ADDED service']);
+                    $useData = new UseData;
+                    $useData->usingService_id = $usingService->id;
+                    $useData->use_value = $request->use_value;
+                    $useData->use_date = $request->use_date;
+                    
+                    if($useData->save()){
+                        return back()->with('messages', ['ADDED service']);
+                    }
+                }else{
+                    $useData = new UseData;
+                    $useData->usingService_id = $usingService->id;
+                    $useData->use_value = $request->use_value;
+                    $useData->use_date = $request->use_date;
+                    
+                    if($useData->save()){
+                        $response = [
+                            'success' => true,
+                            'message' => 'Added service'
+                        ];
+            
+                        return response($response);
+                    } 
                 }
-                $response = [
-                    'success' => true,
-                    'message' => 'Added service'
-                ];
-    
-                return response($response);
-            }else{
+            
                 if(!$request->ajax()){
                     return back()->with('failures', ['Can not excute!']);
                 }

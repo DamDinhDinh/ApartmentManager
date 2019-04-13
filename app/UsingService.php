@@ -17,4 +17,7 @@ class UsingService extends Model
         return $this->belongsTo(Service::class);
     }
 
+    public function useDatas(){
+        return $this->hasMany(UseData::class);
+    }
 }

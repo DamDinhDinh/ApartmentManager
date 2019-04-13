@@ -59,33 +59,49 @@
                 <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin hóa đơn và số  lượng sử dụng: </h3>
             </div>
         </div>
-        <div class="usingService-info-table">
+        <div class="use-info-table">
             <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
-                {{-- @if ($usingService->apartment != null)
+              <tr>
+                <th>Mã chỉ số: </th>
+                <th>Tháng: </th>
+                <th>Chỉ số tháng trước: </th>
+                <th>Chỉ số tháng này: </th>
+                <th>Giá trị sử dụng </th>
+                <th>Trạng thái hóa đơn: </th>
+                <th>Ngày cập nhật: </th>
+              </tr>  
+              
+              @if ($usingService->useDatas != null)
                 @php
-                    $apartment = $usingService->apartment;
+                    $useDatas = $usingService->useDatas;
+                    $useDatas = $useDatas->sortByDesc('use_date');
                 @endphp
-                <tr>
-                    <th width="30%">ID căn hộ: </th>
-                    <td width="70%"><a href="{{route('apartment.show', ['id' => $apartment->id])}}" >{{$apartment->id}}</a></td>
-                </tr>
-                <tr>
-                    <th width="30%">Tên căn hộ: </th>
-                    <td width="70%"><a href="{{route('apartment.show', ['id' => $apartment->id])}}" >{{$apartment->name}}</a></td>
-                </tr>
-                <tr>
-                    <th width="30%">Địa chỉ: </th>
-                    <td width="70%">{{$apartment->address}}</a></td>
-                </tr>
-            </table>
-            @else --}}
-                <tr>
-                    <th width="30%">ID căn hộ: </th>
-                    <td width="70%">NULL</a></td>
-                </tr>
-            </table>
-            {{-- @endif --}}
+                @foreach ($useDatas as $useData)
+                  <tr>
+                    <td>{{$useData->id}}</td>
+                    <td>{{Carbon\Carbon::parse($useData->use_date)->format('m-Y')}}</td>
+                    <td>{{$useData->prevMonthValue()}}</td>
+                    <td>{{$useData->use_value}}</td>
+                    <td>
+                      @php
+                          if($usingService->service->use_method == 1){
+                            echo $useData->use_value;
+                          }else if ($usingService->service->use_method == 2){
+                            $value = $useData->use_value - $useData->prevMonthValue();
+                            echo $value;
+                          }
 
-        </div>
+                      @endphp
+                    </td>
+                    <td>{{$useData->bill != null ? $useData->bill->status : "Chưa có hóa đơn"}}
+                    <td>{{Carbon\Carbon::parse($useData->created_at)->format('d-m-Y')}}</td>
+                  </tr>
+                @endforeach
+            @else
+                <p>None to show</p>
+            </table>
+            @endif
+
+          </div>
     </div>
 @endsection

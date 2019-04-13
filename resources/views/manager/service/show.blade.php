@@ -22,11 +22,23 @@
                     <td width="70%">{{$service->price}}</a></td>
                 </tr>
                 <tr>
+                    <th width="30%">Loại: </th>
+                    @php
+                        if($service->type == 1){
+                            echo "<td width='70%''>Mặc định</td>";
+                        }else if($service->type == 2){
+                            echo "<td width='70%''>Tùy chọn</td>";
+                        }else{
+                            echo "<td></td>";
+                        }
+                    @endphp
+                </tr>
+                <tr>
                     <th width="30%">Phương thức thanh toán: </th>
                     @php
                         if($service->payment_method == 1){
                             echo "<td width='70%''>Theo tháng</td>";
-                        }else if($service->type == 2){
+                        }else if($service->payment_method == 2){
                             echo "<td width='70%''>Theo ngày</td>";
                         }else{
                             echo "<td></td>";
@@ -38,14 +50,17 @@
                     @php
                         if($service->use_method == 1){
                             echo "<td width='70%'>Không thay đổi</td>";
-                        }else if($service->type == 2){
+                        }else if($service->use_method == 2){
                             echo "<td width='70%'>Thay đổi</td>";
                         }else{
                             echo "<td></td>";
                         }
                     @endphp
                 </tr>
-            
+                <tr>
+                    <th width="30%">Mô tả: </th>
+                    <td width="70%">{{$service->description}}</a></td>
+                </tr>
             </table>
         </div>
     </div>
