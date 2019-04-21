@@ -50,6 +50,16 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::prefix('/usingService/{usingService}')->group(function (){
         Route::resource('/useData', 'UseDataController');
+
+        Route::get('/bill', 'BillController@index')->name('bill.index');
+        Route::prefix('/useData/{useData}')->group(function() {
+            Route::get('/bill/create', 'BillController@create')->name('bill.create');
+            Route::get('/bill/{bill}', 'BillController@show')->name('bill.show');
+            Route::get('/bill/edit/{bill}', 'BillController@edit')->name('bill.edit');
+            Route::post('/bill', 'BillController@store')->name('bill.store');
+            Route::put('/bill/{bill}', 'BillController@update')->name('bill.update');
+            Route::delete('/bill/{bill}', 'BillController@destroy')->name('bill.delete');
+        });
     });
 });
 

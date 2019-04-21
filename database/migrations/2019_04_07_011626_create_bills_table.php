@@ -16,16 +16,18 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
             $table->text('name');
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
+            $table->integer('using_service_id');
             $table->integer('use_data_id');
-            $table->integer('amount');
-            $table->float('cost');
+            $table->integer('use_value');
+            $table->float('price');
+            $table->date('use_date');
             $table->float('discount');
             $table->float('vat');
             $table->float('sum');
-            $table->integer('status');
-            $table->integer('paid_method');
-            $table->dateTime('paid_date');
+            $table->integer('status')->default(0);
+            $table->integer('paid_method')->nullable();
+            $table->dateTime('paid_date')->nullable();
             $table->timestamps();
         });
     }

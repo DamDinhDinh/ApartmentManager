@@ -19,6 +19,7 @@
                         <th>Giá trị sử dụng </th>
                         <th>Trạng thái hóa đơn: </th>
                         <th>Ngày cập nhật: </th>
+                        <th>Hóa đơn: </th>
                       </tr>  
                         @foreach ($useDataList as $useData)
                           <tr>
@@ -39,6 +40,7 @@
                             </td>
                             <td>{{$useData->bill != null ? $useData->bill->status : "Chưa có hóa đơn"}}
                             <td>{{Carbon\Carbon::parse($useData->created_at)->format('d-m-Y')}}</td>
+                            <td><a href="{{route('bill.create', ['usingService' => Route::input('usingService'), 'useData' => $useData->id])}}">Create</a></td>
                           </tr>
                         @endforeach
                     @else
