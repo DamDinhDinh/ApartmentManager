@@ -78,7 +78,7 @@
                 @endphp
                 @foreach ($useDatas as $useData)
                   <tr>
-                    <td>{{$useData->id}}</td>
+                    <td><a href="{{route('useData.index', ['usingService' => $usingService->id])}}">{{$useData->id}}</a></td>
                     <td>{{Carbon\Carbon::parse($useData->use_date)->format('m-Y')}}</td>
                     <td>{{$useData->prevMonthValue()}}</td>
                     <td>{{$useData->use_value}}</td>
@@ -102,6 +102,6 @@
             </table>
             @endif
 
-          </div>
+        </div>
     </div>
 @endsection

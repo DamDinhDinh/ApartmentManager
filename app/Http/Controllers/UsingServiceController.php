@@ -9,6 +9,8 @@ use App\UsingService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request as Request1;
 use App\Model\UseData;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class UsingServiceController extends Controller
 {
@@ -84,22 +86,15 @@ class UsingServiceController extends Controller
             }
 
             if($usingService->save()){
-                if(!$request->ajax()){
-                    $useData = new UseData;
-                    $useData->usingService_id = $usingService->id;
-                    $useData->use_value = $request->use_value;
-                    $useData->use_date = $request->use_date;
-                    
-                    if($useData->save()){
+                $useData = new UseData;
+                $useData->using_service_id = $usingService->id;
+                $useData->use_value = $request->use_value;
+                $useData->use_date = $request->use_date;
+
+                if($useData->save()){
+                    if(!$request->ajax()){
                         return back()->with('messages', ['ADDED service']);
-                    }
-                }else{
-                    $useData = new UseData;
-                    $useData->usingService_id = $usingService->id;
-                    $useData->use_value = $request->use_value;
-                    $useData->use_date = $request->use_date;
-                    
-                    if($useData->save()){
+                    }else{
                         $response = [
                             'success' => true,
                             'message' => 'Added service'
@@ -107,8 +102,19 @@ class UsingServiceController extends Controller
             
                         return response($response);
                     } 
+                    
+                }else{
+                    if(!$request->ajax()){
+                        return back()->with('failures', ['Can not excute!']);
+                    }
+                    $response = [
+                        'error' => true,
+                        'errorType' => 3,
+                        'message' => 'Can not excute',
+                    ];
                 }
-            
+                
+            }else{
                 if(!$request->ajax()){
                     return back()->with('failures', ['Can not excute!']);
                 }

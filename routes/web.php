@@ -47,7 +47,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/usingService/show/{id}', 'UsingServiceController@show')->name('usingService.show');
     Route::get('/usingService/create', 'UsingServiceController@create')->name('usingService.create');
     Route::post('/usingService', 'UsingServiceController@store')->name('usingService.store1');
-    
+
+    Route::prefix('/usingService/{usingService}')->group(function (){
+        Route::resource('/useData', 'UseDataController');
+    });
 });
 
 Auth::routes();

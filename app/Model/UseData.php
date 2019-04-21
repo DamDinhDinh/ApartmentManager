@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class UseData extends Model
 {
     public function usingService(){
-        return $this->belongsTo(UsingService::class)->orderBy(‘use_date’, 'DESC');
+        return $this->belongsTo(UsingService::class);
     }
 
     public function bill(){
