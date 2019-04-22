@@ -19,7 +19,6 @@
                         <th>Giá trị sử dụng </th>
                         <th>Trạng thái hóa đơn: </th>
                         <th>Ngày cập nhật: </th>
-                        <th>Hóa đơn: </th>
                       </tr>  
                         @foreach ($useDataList as $useData)
                           <tr>
@@ -28,9 +27,19 @@
                             <td>{{$useData->prevMonthValue()}}</td>
                             <td>{{$useData->use_value_curr}}</td>
                             <td>{{$useData->use_value}}</td>
-                            <td>{{$useData->bill != null ? $useData->bill->status : "Chưa có hóa đơn"}}
+                            @php
+                                if($useData->bill == null){
+                                  echo "<td><a href=" . route('bill.create', ['usingService' => Route::input('usingService'), 'useData' => $useData->id]) .">Tạo hóa đơn</a></td>";
+                                }else{
+                                  if($useData->bill->status == 0){
+                                    echo "<td><a href=" . route('bill.payment', ['usingService' => Route::input('usingService'), 'useData' => $useData->id, 'bill' => $useData->bill->id]) .">Thanh toán</a></td>";
+                                  }else{
+                                    echo "<td>Đã thanh toán</td>";
+                                  }
+                                }
+                            @endphp
                             <td>{{Carbon\Carbon::parse($useData->created_at)->format('d-m-Y')}}</td>
-                            <td><a href="{{route('bill.create', ['usingService' => Route::input('usingService'), 'useData' => $useData->id])}}">Create</a></td>
+                            
                           </tr>
                         @endforeach
                     @else

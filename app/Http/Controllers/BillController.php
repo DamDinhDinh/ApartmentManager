@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\UsingService;
 use App\Model\UseData;
 use App\Model\Bill;
+use App\User;
 
 class BillController extends Controller
 {
@@ -89,12 +90,16 @@ class BillController extends Controller
                     $user = User::find($request->user_id);
     
                     if($user != null){
-                        $bill->user_id = $user->id;
-                        $bill->paid_method = $request->paid_method;
-                        $bill->paid_date = $request->paid_date;
+
+                        // $bill->status = 1;
+                        // $bill->user_id = $user->id;
+                        // $bill->paid_method = $request->paid_method;
+                        // $bill->paid_date = $request->paid_date;
     
-                        if($bill->save()){
-                            return back()->with('message', ['Bill created']);
+                        $result = $bill->doPayment($user->id, $request->paid_method, $request->paid_date);
+
+                        if($result){
+                            return back()->with('messages', ['Bill created']);
                         }else{
                             return back()->with('failures', ['Cannot excute']);
                         }
@@ -155,6 +160,7 @@ class BillController extends Controller
         //
     }
 
+
     private function calculate($amount, $price, $vat, $discount){
         $cost = $amount * $price;
         $cost = $cost - $cost * $discount/100;
@@ -162,5 +168,39 @@ class BillController extends Controller
 
         $sum = $cost;
         return $cost;
+    }
+
+    public function paid(Request $request){
+        $request->validate([
+            'user_id' => 'required|int',
+            'paid_method' => 'required|int',
+            'paid_date' => 'required|date'
+        ]);
+
+        $bill = Bill::find($request->bill);
+    
+        if($bill != null){
+            $result = $bill->doPayment($request->user_id, $request->paid_method, $request->paid_date);
+
+            if($result){
+                return back()->with('messages', ['Bill paid succes']);
+            }else{
+                return back()->with('failures', ['Cannot excute']);
+            }
+        }else{
+            return back()->with('failures', ['Invailid bill ID']);
+        }
+    }
+
+    public function payment($usingService, $useData, $id)
+    {
+        $usingService = UsingService::find($usingService);
+        $useData = UseData::find($useData);
+        $bill = Bill::find($id);
+        if($usingService != null && $useData != null && $bill != null){
+            return view('manager.bill.payment')->with(['usingService' => $usingService, 'useData' => $useData, 'bill' => $bill]);
+        }else{
+            return back()->with('failures', ['Invailid using service ID or use data ID']);
+        }
     }
 }

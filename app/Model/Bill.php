@@ -20,4 +20,25 @@ class Bill extends Model
     public function usingService(){
         return $this->belongsTo(UsingService::class);
     }
+
+    public function doPayment($userID, $paidMethod, $paidDate){
+        $user = User::find($userID);
+
+        if($user != null){//user exist
+            //first check business logical then do update to bill status
+
+            $this->status = 1;
+            $this->user_id = $userID;
+            $this->paid_method = $paidMethod;
+            $this->paid_date = $paidDate;
+
+            if($this->save()){// complete excute
+                return 1;
+            }else{//failed to excute
+                return -2; //can not excute
+            }
+        }else{ // user not exist
+            return -1; //user id invailid
+        }
+    }
 }

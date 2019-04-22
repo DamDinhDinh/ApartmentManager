@@ -59,6 +59,8 @@ Route::group(['middleware' => 'auth'], function(){
             Route::post('/bill', 'BillController@store')->name('bill.store');
             Route::put('/bill/{bill}', 'BillController@update')->name('bill.update');
             Route::delete('/bill/{bill}', 'BillController@destroy')->name('bill.delete');
+            Route::get('/bill/{bill}/payment', 'BillController@payment')->name('bill.payment');
+            Route::put('/bill/{bill}/payment', 'BillController@paid')->name('bill.paid');
         });
     });
 });
