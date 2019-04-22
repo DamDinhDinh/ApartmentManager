@@ -28,5 +28,13 @@ Route::post('/user/login', 'API\UserController@login')->name('api.user.login');
     
     Route::get('/apartment', 'API\ApartmentController@index')->name('apartment.index'); 
     Route::get('/apartment/show/{apartment}', 'API\ApartmentController@show')->name('apartment.show');
+    
+    Route::prefix('/apartment/{apartment}')->group(function (){
+        Route::get('/usingService/show/{usingService}', 'API\UsingServiceController@show')->name('usingService.show');
+    });
+
+    Route::get('/useData/show/{useData}', 'API\UseDataController@show')->name('useData.show');
+
+    Route::get('/service/{service}', 'API\ServiceController@show')->name('service.show');
 });
 

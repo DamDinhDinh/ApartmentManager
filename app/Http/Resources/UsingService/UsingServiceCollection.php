@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\UsingService;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class UsingServiceCollection extends Resource
+class UsingServiceCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -18,11 +18,10 @@ class UsingServiceCollection extends Resource
             'id' => $this->id,
             'apartment_name' => $this->apartment->name,
             'service_name' => $this->service->name,
-            'use_data' => $this->use_datas != null ? $this->use_datas->count() : 0,
             'start_date' => $this->start_date,
             'expire_date' => $this->expire_date,
             'href' => [
-                'using_service_show' => ""
+                'using_service_show' => route('api.usingService.show', ['apartment' => $this->apartment_id, 'usingService' => $this->id])
             ]
         ];
     }

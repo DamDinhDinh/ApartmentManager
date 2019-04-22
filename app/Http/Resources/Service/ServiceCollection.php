@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Service;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceCollection extends Resource
+class ServiceCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -17,6 +17,7 @@ class ServiceCollection extends Resource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'type' => $this->type == 0 ? "Mặc định" : "Tùy chọn",
             'payment_method' => $this->payment_method == 1 ? "Theo tháng" : ($this->payment_method == 2 ? "Theo ngày" : "null"),
             'use_method' => $this->payment_method == 1 ? "Không thay đổi" : ($this->payment_method == 2 ? "Thay đổi" : "null"),
             'price' => $this->price,
