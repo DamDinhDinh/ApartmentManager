@@ -81,18 +81,8 @@
                     <td><a href="{{route('useData.index', ['usingService' => $usingService->id])}}">{{$useData->id}}</a></td>
                     <td>{{Carbon\Carbon::parse($useData->use_date)->format('m-Y')}}</td>
                     <td>{{$useData->prevMonthValue()}}</td>
+                    <td>{{$useData->use_value_curr}}</td>
                     <td>{{$useData->use_value}}</td>
-                    <td>
-                      @php
-                          if($usingService->service->use_method == 1){
-                            echo $useData->use_value;
-                          }else if ($usingService->service->use_method == 2){
-                            $value = $useData->use_value - $useData->prevMonthValue();
-                            echo $value;
-                          }
-
-                      @endphp
-                    </td>
                     <td>{{$useData->bill != null ? $useData->bill->status : "Chưa có hóa đơn"}}
                     <td>{{Carbon\Carbon::parse($useData->created_at)->format('d-m-Y')}}</td>
                   </tr>

@@ -25,7 +25,7 @@ class UseData extends Model
         $year = $carbon->year;
         $prevMonth = $carbon->month;
 
-        $value = UseData::where('using_service_id', '=', $this->using_service_id)->whereYear('use_date', '=', $year)->whereMonth('use_date', '=', $prevMonth)->value('use_value');
+        $value = UseData::where('using_service_id', '=', $this->using_service_id)->whereYear('use_date', '=', $year)->whereMonth('use_date', '=', $prevMonth)->value('use_value_curr');
 
         return $value != null ? $value : 0;
     }

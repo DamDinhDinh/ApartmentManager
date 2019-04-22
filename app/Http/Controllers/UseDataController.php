@@ -55,8 +55,14 @@ class UseDataController extends Controller
 
         $useData = new UseData;
         $useData->using_service_id = $request->usingService;
-        $useData->use_value = $request->useValue;
         $useData->use_date = $request->useDate;
+        $useData->use_value_prev = $useData->prevMonthValue();
+        $useData->use_value_curr = $request->useValue;
+        if($useData->usingService->service->use_method == 1){
+            $useData->use_value = $useData->use_value_curr;
+        }else if($useData->usingService->service->use_method == 2){
+            $useData->use_value = $useData->use_value_curr - $useData->use_value_prev;
+        }
                     
         if($useData->save()){
             if(!$request->ajax()){

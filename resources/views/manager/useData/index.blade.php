@@ -26,18 +26,8 @@
                             <td>{{$useData->id}}</td>
                             <td>{{Carbon\Carbon::parse($useData->use_date)->format('m-Y')}}</td>
                             <td>{{$useData->prevMonthValue()}}</td>
+                            <td>{{$useData->use_value_curr}}</td>
                             <td>{{$useData->use_value}}</td>
-                            <td>
-                              @php
-                                  if($useData->usingService->service->use_method == 1){
-                                    echo $useData->use_value;
-                                  }else if ($useData->usingService->service->use_method == 2){
-                                    $value = $useData->use_value - $useData->prevMonthValue();
-                                    echo $value;
-                                  }
-        
-                              @endphp
-                            </td>
                             <td>{{$useData->bill != null ? $useData->bill->status : "Chưa có hóa đơn"}}
                             <td>{{Carbon\Carbon::parse($useData->created_at)->format('d-m-Y')}}</td>
                             <td><a href="{{route('bill.create', ['usingService' => Route::input('usingService'), 'useData' => $useData->id])}}">Create</a></td>

@@ -16,7 +16,9 @@ class CreateUseDataTable extends Migration
         Schema::create('use_data', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('using_service_id');
-            $table->float('use_value');
+            $table->integer('use_value_prev');
+            $table->integer('use_value_curr');
+            $table->integer('use_value');
             $table->date('use_date');
             $table->timestamps();
         });

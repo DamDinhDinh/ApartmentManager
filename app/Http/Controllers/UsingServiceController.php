@@ -63,7 +63,7 @@ class UsingServiceController extends Controller
             $usingService->apartment_id = $apartmentID;
             $usingService->start_date = $request->start_date;
 
-            if($usingService->service->payment_method ==  1 && $usingService->service->use_method == 1){
+            if($usingService->service->payment_method ==  1){
                 if($usingService->service->use_method == 1){
                     $usingService->expire_date = $request->start_date;
                     //create bill
@@ -88,8 +88,14 @@ class UsingServiceController extends Controller
             if($usingService->save()){
                 $useData = new UseData;
                 $useData->using_service_id = $usingService->id;
-                $useData->use_value = $request->use_value;
                 $useData->use_date = $request->use_date;
+                $useData->use_value_prev = $useData->prevMonthValue();
+                $useData->use_value_curr = $request->use_value;
+                if($usingService->service->use_method == 1){
+                    $useData->use_value = $useData->use_value_curr;
+                }else if($usingService->service->use_method == 2){
+                    $useData->use_value = $useData->use_value_curr - $useData->use_value_prev;
+                }
 
                 if($useData->save()){
                     if(!$request->ajax()){
