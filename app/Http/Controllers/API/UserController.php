@@ -25,6 +25,7 @@ class UserController extends Controller
                 $response = [
                     'success' => true,
                     'message' => 'Loged in',
+                    'data' => new UserResource($user),
                     'bearer_token' => $token
                 ];
 
