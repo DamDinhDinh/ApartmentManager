@@ -17,18 +17,12 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        return ApartmentCollection::collection(Apartment::all());
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $response = [
+            'success' => true,
+            'message' => 'Apartment list',
+            'data' => ApartmentCollection::collection(Apartment::all())
+        ];
+        return $response;
     }
 
     /**
@@ -41,29 +35,22 @@ class ApartmentController extends Controller
     {
         $apartment = Apartment::find($id);
 
-        return new ApartmentResource($apartment);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if($apartment != null){
+            $response = [
+                'success' => true,
+                'message' => 'Apartment show',
+                'data' => new ApartmentResource($apartment)
+            ];
+    
+            return $response;
+        }else{
+            $response = [
+                'failed' => true,
+                'message' => 'Invailid apartment ID'
+            ];
+    
+            return $response;
+        }
+       
     }
 }

@@ -19,11 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/user/login', 'API\UserController@login')->name('api.user.login');
 
-Route::middleware('auth:api')->name('api.')->group(function (){
+// Route::middleware('auth:api')->name('api.')->group(function (){
+    Route::name('api.')->group(function (){
     Route::get('/user', 'API\UserController@index')->name('user.index');
     Route::get('/user/{user}', 'API\UserController@show')->name('user.show');
     Route::post('/user', 'API\UserController@update')->name('user.update');
     Route::post('/user/logout', 'API\UserController@logout')->name('user.logout');
-    Route::apiResource('apartment', 'API\ApartmentController');
+    
+    Route::get('/apartment', 'API\ApartmentController@index')->name('apartment.index'); 
+    Route::get('/apartment/show/{apartment}', 'API\ApartmentController@show')->name('apartment.show');
 });
 

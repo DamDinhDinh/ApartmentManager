@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name != null ? $this->name : "null",
             'email' => $this->email != null ? $this->email : "null",
-            'phone_number' => $this->phone_number != null ? $this->name : "null",
+            'phone_number' => $this->phone_number != null ? $this->phone_number : "null",
             'href' => [
                 'apartment' => $this->apartment != null ? route('api.apartment.show', ['id' => $this->apartment->id]) : "null"
             ],

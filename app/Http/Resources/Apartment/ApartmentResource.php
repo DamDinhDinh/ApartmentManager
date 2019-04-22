@@ -4,6 +4,7 @@ namespace App\Http\Resources\Apartment;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\UsingService\UsingServiceCollection;;
 
 class ApartmentResource extends JsonResource
 {
@@ -20,8 +21,7 @@ class ApartmentResource extends JsonResource
             'name' => $this->name,
             'address' => $this->address,
             'users' => $this->users->count() > 0 ? ( UserCollection::collection($this->users)) : 0,
-            // 'services' => $this->services->count() > 0 ? $this->services : 'none',
-            'services' => 0,
+            'using_services' => $this->usingServices->count() > 0 ? (UsingServiceCollection::collection($this->usingServices)) : 0
         ];
     }
 }

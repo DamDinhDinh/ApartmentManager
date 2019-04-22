@@ -21,7 +21,7 @@ class ApartmentCollection extends JsonResource
             'user_number' => $this->users->count(),
             'href' => [
                 'apartment' => route('api.apartment.show', ['id' => $this->id])
-            ],
+            ]
         ];
     }
 }

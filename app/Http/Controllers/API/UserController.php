@@ -23,21 +23,24 @@ class UserController extends Controller
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
                 $response = [
-                    'success' => 'Success login',
+                    'success' => true,
+                    'message' => 'Loged in',
                     'bearer_token' => $token
                 ];
 
                 return response($response, 200);
             }else{
                 $response = [
-                    'error' => 'Password not match'
+                    'failed' => true,
+                    'message' => 'Password not match'
                 ];
 
                 return response($response, 422);
             }
         }else{
             $response = [
-                'error' => 'Email does not exist'
+                'failed' => true,
+                'message' => 'Email does not exist'
             ];
 
             return response($response, 422);
@@ -47,25 +50,11 @@ class UserController extends Controller
     public function logout(Request $request){
         $request->user()->token()->revoke();
         $response = [
-            'success' => 'You are successfully logged out'
+            'success' => true,
+            'message' => 'Logged out'
         ];
 
         return Response($response, 200);
-    }
-
-    public function index(Request $request){
-        $user_id = $request->user()->id;
-        $user = User::find($user_id);
-
-        if($user != null){
-            return new UserResource($user);
-        }else{
-            $response = [
-                'error' => 'User ID not found'
-            ];
-
-            return response($response, 404);
-        }
     }
 
     /**
@@ -79,10 +68,16 @@ class UserController extends Controller
         $user = User::find($id);
         
         if($user != null){
-            return new UserResource($user);
+            $response = [
+                'success' => true,
+                'message' => 'User show',
+                'data' => new UserResource($user)
+            ];
+            return $response;
         }else{
             $response = [
-                'error' => 'User ID not found'
+                'failed' => true,
+                'message' => 'User ID not found'
             ];
 
             return response($response, 404);
@@ -106,7 +101,12 @@ class UserController extends Controller
         }
         
         $user->update($request->all());
-        return $user = User::find($user_id);;
+        
+        $response = [
+            'success' => true,
+            'message' => 'Updated user',
+            'data' => new UserResource($user)
+        ];
     }
 
 }
