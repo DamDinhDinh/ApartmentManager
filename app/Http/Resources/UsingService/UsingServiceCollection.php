@@ -16,12 +16,14 @@ class UsingServiceCollection extends JsonResource
     {
         return [
             'id' => $this->id,
+            'apartment_id' => $this->apartment_id,
             'apartment_name' => $this->apartment->name,
             'service_name' => $this->service->name,
+            'service_id' => $this->service->id,
             'start_date' => $this->start_date,
             'expire_date' => $this->expire_date,
             'href' => [
-                'using_service_show' => route('api.usingService.show', ['apartment' => $this->apartment_id, 'usingService' => $this->id])
+                'using_service_show' => route('api.usingService.show', ['usingService' => $this->id])
             ]
         ];
     }

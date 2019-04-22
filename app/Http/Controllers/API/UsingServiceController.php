@@ -9,7 +9,7 @@ use App\Http\Resources\UsingService\UsingServiceResource;
 
 class UsingServiceController extends Controller
 {
-    public function show($apartment, $usingService){
+    public function show( $usingService){
         $usingService = UsingService::find($usingService);
 
         if($usingService != null){

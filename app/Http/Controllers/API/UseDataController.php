@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\UseData;
 use App\Http\Resources\UseData\UseDataResource;
 
-class UseDataContoller extends Controller
+class UseDataController extends Controller
 {
     public function show($id){
         $useData = UseData::find($id);

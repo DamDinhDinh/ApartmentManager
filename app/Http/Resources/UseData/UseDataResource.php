@@ -4,6 +4,7 @@ namespace App\Http\Resources\UseData;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
+use App\Http\Resources\User\UserResource;
 
 class UseDataResource extends JsonResource
 {
@@ -28,7 +29,7 @@ class UseDataResource extends JsonResource
                 'apartment_show' => route('api.apartment.show', ['apartment' => $this->usingService->apartment->id]),
                 'service_show' => route('api.service.show', ['service' => $this->usingService->service->id]),
                 'bill_show' => "",
-                'user_paid' => $this->bill != null ? ($this->bill->user != null ? $this->bill->user : "Không có thông tin") : "Không có thông tin"
+                'user_paid' => $this->bill != null ? ($this->bill->user != null ? new UserResource($this->bill->user) : "Không có thông tin") : "Không có thông tin"
             ],
         ];
     }

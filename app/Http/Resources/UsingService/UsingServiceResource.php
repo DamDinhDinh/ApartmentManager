@@ -17,8 +17,10 @@ class UsingServiceResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'apartment_id' => $this->apartment_id,
             'apartment_name' => $this->apartment->name,
             'service_name' => $this->service->name,
+            'service_id' => $this->service->id,
             'service_type' => $this->service->type == 0 ? "Mặc định" : "Tùy chọn",
             'payment_method' => $this->service->payment_method == 1 ? "Theo tháng" : $this->payment_method == 2 ? "Theo ngày" : "null",
             'use_method' => $this->service->payment_method == 1 ? "Không thay đổi" : $this->payment_method == 2 ? "Thay đổi" : "null",
