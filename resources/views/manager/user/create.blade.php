@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
-
+<div style="padding: 10px">
     <form class="form" method="POST" action="{{route('user.store')}}">
         {{csrf_field()}}
         <div class="row">
@@ -41,5 +41,5 @@
         </div>
         
     </form>
-
+</div>
 @endsection 

@@ -161,7 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
+        
         /*
          * Package Service Providers...
          */
@@ -174,6 +174,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        //project require
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
 
     ],
 
@@ -226,6 +231,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+
+        //project aliases
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
     ],
 
 ];

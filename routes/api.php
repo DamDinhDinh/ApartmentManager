@@ -27,10 +27,10 @@ Route::name('api.')->group(function (){
     Route::post('/user/logout', 'API\UserController@logout')->name('user.logout');
     
     Route::get('/apartment', 'API\ApartmentController@index')->name('apartment.index'); 
-    Route::get('/apartment/show/{apartment}', 'API\ApartmentController@show')->name('apartment.show');
+    Route::get('/apartment/{apartment}', 'API\ApartmentController@show')->name('apartment.show');
     
-    Route::get('/usingService/show/{usingService}', 'API\UsingServiceController@show')->name('usingService.show');
-    Route::get('/useData/show/{useData}', 'API\UseDataController@show')->name('useData.show');
+    Route::get('/usingService/{usingService}', 'API\UsingServiceController@show')->name('usingService.show');
+    Route::get('/useData/{useData}', 'API\UseDataController@show')->name('useData.show');
 
     Route::get('/service/{service}', 'API\ServiceController@show')->name('service.show');
 });

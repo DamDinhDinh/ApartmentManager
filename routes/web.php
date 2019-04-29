@@ -43,10 +43,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/service/search', 'ServiceController@search')->name('service.search');
     Route::resource('service', 'ServiceController');
 
-    Route::get('/usingService', 'UsingServiceController@index')->name('usingService.index');
-    Route::get('/usingService/show/{id}', 'UsingServiceController@show')->name('usingService.show');
-    Route::get('/usingService/create', 'UsingServiceController@create')->name('usingService.create');
-    Route::post('/usingService', 'UsingServiceController@store')->name('usingService.store1');
+    Route::resource('usingService', 'UsingServiceController');
 
     Route::prefix('/usingService/{usingService}')->group(function (){
         Route::resource('/useData', 'UseDataController');
@@ -63,6 +60,11 @@ Route::group(['middleware' => 'auth'], function(){
             Route::put('/bill/{bill}/payment', 'BillController@paid')->name('bill.paid');
         });
     });
+
+    Route::get('/dataTable/apartment', 'AJAX\ApartmentController@index')->name('ajax.apartment.index');
 });
 
 Auth::routes();
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
     <div class="show-user ">
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="user-info-table">
-            <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
+            <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered table-hover thead-dark">
                 @if ($user->apartment != null)
                 @php
                     $apartment = $user->apartment;
@@ -128,7 +128,7 @@
     </div>
 @endsection
 
-@section('footer')
+@section('js')
     <script type="text/javascript">
         $('#searchApartmentBtn').click(function (){
             $('#searchMessageP').text('');

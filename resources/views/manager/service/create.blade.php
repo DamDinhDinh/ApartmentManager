@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
-
+<div style="padding: 10px">
     <form class="form" method="POST" action="{{route('service.store')}}">
         {{csrf_field()}}
         <div class="row">
@@ -45,9 +45,6 @@
         <div class="text-right" style="margin-top: 10px">
             <button class="btn btn-primary float-right" type="submit" >Thêm dịch vụ</button>
         </div>
-        
-
-        
     </form>
-
+</div>
 @endsection 

@@ -1,6 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
+<div style="padding: 10px">
 
     <form class="form" method="POST" action="{{route('user.update', $user->id)}}">
         {{csrf_field()}}
@@ -26,7 +27,7 @@
         </div>
         <div class="row">
                 <label class="col-md-2"for="apartmentID">ID căn hộ: </label>
-                <input value="{{$user->apartment->id}}" type="number" class="form-control col-md-10" name="apartmentID" placeholder="VD: 0">
+                <input value="{{$user->apartment != null ? $user->apartment->id : ""}}" type="number" class="form-control col-md-10" name="apartmentID" placeholder="VD: 0">
         </div>
         <div class="row">
                 <label class="col-md-2"for="password">Mật khẩu</label>
@@ -41,5 +42,5 @@
         </div>
         {{method_field('PUT')}}
     </form>
-
+</div>
 @endsection 

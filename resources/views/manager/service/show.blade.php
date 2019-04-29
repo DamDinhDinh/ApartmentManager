@@ -1,12 +1,17 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('content_header')
+    <div class="head-show-part">
+            <h3 class=" text-black font-weight-bold">Thông dịch vụ: </h3>
+        <div class="row pull-right">
+            
+        </div>
+    </div>
+@endsection
 
 @section('content')
+<div style="padding: 10px">
     <div class="show-service ">
-        <div class="head-show-part">
-            <div class="row">
-                <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông dịch vụ: </h3>
-            </div>
-        </div>
         <div class="service-info-table">
             <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
                 <tr>
@@ -99,4 +104,5 @@
 
         </div>
     </div>
+</div>
 @endsection

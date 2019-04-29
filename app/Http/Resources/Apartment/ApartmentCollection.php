@@ -18,7 +18,8 @@ class ApartmentCollection extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'address' => $this->address,
-            'user_number' => $this->users->count(),
+            'users' => $this->users->count(),
+            'using_services' => $this->usingServices->count(),
             'href' => [
                 'apartment' => route('api.apartment.show', ['id' => $this->id])
             ]

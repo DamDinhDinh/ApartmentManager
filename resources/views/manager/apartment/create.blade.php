@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
-
+<div style="padding: 10px">
     <form class="form" method="POST" action="{{route('apartment.store')}}">
         {{csrf_field()}}
         <div class="row">
@@ -16,5 +16,5 @@
             <button class="btn btn-primary float-right" type="submit" id="btnSubmitCreateApartment">Thêm căn hộ</button>
         </div>
     </form>
-
+</div>
 @endsection 

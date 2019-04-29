@@ -1,25 +1,33 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'Dịch vụ')
+
+@section('content_header')
+    <div class="row content-header">
+    <div class="row pull-right" >
+        <a style="margin-right: 15px" class="btn btn-primary" href="{{route('service.create')}}" >Thêm dịch vụ mới</a>
+    </div>
+</div>
+@endsection
 
 @section('content')
-    <div class="services-control-part">
-        <div class="row" >
-            <h3 style="margin: 22px" class="text-black font-weight-bold">Danh sách dịch vụ: </h3>
-            <a style="margin: 22px" class="btn btn-primary" href="{{route('service.create')}}" >Thêm dịch vụ mới</a>
-        </div>
-    </div>
-    <div class="services-show-part">
+    
+    <div class="services-show">
             @if (count($services) > 0)
-            <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
+            <table id="table-services" width="100%" style="text-align: center !important" class="display table table-striped table-bordered .table-hover thead-dark">
+                <thead>
                 <tr>
                     <th width="5%">ID</th>
-                    <th width="20%">Tên dịch vụ</th>
-                    <th width="20%">Phương thức thanh toán</th>
-                    <th width="20%">Số lượng sử dụng</th>
+                    <th width="15%">Tên dịch vụ</th>
+                    <th width="15%">Phương thức thanh toán</th>
+                    <th width="15%">Số lượng sử dụng</th>
                     <th width="10%">Giá</th>
                     <th width="35%">Mô tả</th>
                     <th width="5%">Sửa</th>
                     <th width="5%">Xóa</th>  
                 </tr>
+                </thead>
+                <tbody>
                 @foreach ($services as $service)
                     <tr>
                         <td><a href="{{route('service.show', ['id' => $service->id])}}" >{{$service->id}}</a></td>
@@ -52,6 +60,7 @@
                         </td>
                     </tr>
                 @endforeach
+                <tbody>
             <table>
             {{$services->links()}}
         @else
@@ -59,4 +68,14 @@
             <h3 class="col-md-10 text-primary font-weight-bold">Hiện không có dịch vụ nào</h3>
         @endif
     </div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#table-services').DataTable({
+                "bPaginate": false
+            });
+        });
+    </script>
 @endsection

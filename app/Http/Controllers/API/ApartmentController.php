@@ -16,7 +16,7 @@ class ApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $response = [
             'success' => true,
             'message' => 'Apartment list',

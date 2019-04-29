@@ -1,20 +1,23 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('content_header')
+<div class="row">
+        <div class="row pull-right" style="margin-right: 15px">
+            <a href="{{route('apartment.edit', $apartment->id)}}" class="btn btn-warning">Sửa thông tin</a>
+            <form style="display: inline-block"  method="POST" action="{{route('apartment.destroy', $apartment->id)}}">
+                {{csrf_field()}}
+                <button class="btn btn-danger" type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa căn hộ</button>
+                {{method_field("DELETE")}}
+            </form>
+        </div>
+</div>
+@endsection
 
 @section('content')
-
 <div class="resident-apartment-info">
-        <div class="head-show-part">
-            <div class="row">
-                <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin căn hộ: </h3>
-                <a style="margin: 22px" href="{{route('apartment.edit', $apartment->id)}}" class="btn btn-warning">Sửa thông tin</a>
-                <form method="POST" action="{{route('apartment.destroy', $apartment->id)}}">
-                    {{csrf_field()}}
-                    <button style="margin: 22px" class="btn btn-danger" type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa căn hộ</button>
-                    {{method_field("DELETE")}}
-                </form>
-            </div>
-        </div>
-        <div class="apartment-info-table">
+<div style="padding: 10px">
+    <div class="row">
+        <div class="apartment-info-table col-md-4">
             <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
                 <tr>
                     <th width="30%">ID: </th>
@@ -30,55 +33,56 @@
                 </tr>
             </table>
         </div>
-    <div class="show-user ">
-        <div class="head-show-part">
-            <div class="row">
-                <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin người dùng: </h3>
-               <!-- Button to Open the Modal -->
-                <button  style="margin: 22px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addResidentModal">
-                    Thêm cư dân
-                </button>
+        <div class="row col-md-10">
+            <div class="show-user ">
+                <div class="row">
+                    <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin người dùng: </h3>
+                    <!-- Button to Open the Modal -->
+                    <button  style="margin: 22px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addResidentModal">
+                        Thêm cư dân
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="user-info-table">
-            <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
-                <tr>
-                    <th width="10%">ID</th>
-                    <th width="20%">Name</th>
-                    <th width="20%">Email</th>
-                    <th width="20%">Phone Number</th>
-                    <th width="10%">Type</th>
-                    <th width="10%">Move</th>
-                    <th width="10%">Delete</th>  
-                </tr>
-                @if (count($apartment->users) > 0)
-                @php
-                    $users = $apartment->users;
-                @endphp
-                @foreach ($users as $user)
-                <tr>
-                    <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->id}}</a></td>
-                    <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->name}}</a></td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->phone_number}}</td>
-                    <td>{{$user->type}}</td>
-                    <td><a href="" class="btn btn-warning">Move</a></td>
-                    <td>
-                        <form method="POST" action="{{route('resident.destroy', $apartment->id)}}">
-                            {{csrf_field()}}
-                            <input type="hidden" name="apartment" value="{{$apartment->id}}">
-                            <input type="hidden" name="resident" value="{{$user->id}}">
-                            <button class="btn btn-danger"type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa</button>
-                            {{method_field("DELETE")}}
-                        </form>
-                    </td>
-                </tr>
-                @endforeach 
-            </table>
-                @else
-            </table>
-                    <h3 class="col-md-10 text-primary font-weight-bold">Hiện không có cư dân nào</h3>
-                @endif
+            <div class="user-info-table">
+                <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
+                    <tr>
+                        <th width="10%">ID</th>
+                        <th width="20%">Name</th>
+                        <th width="20%">Email</th>
+                        <th width="20%">Phone Number</th>
+                        <th width="10%">Type</th>
+                        <th width="10%">Move</th>
+                        <th width="10%">Delete</th>  
+                    </tr>
+                    @if (count($apartment->users) > 0)
+                    @php
+                        $users = $apartment->users;
+                    @endphp
+                    @foreach ($users as $user)
+                    <tr>
+                        <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->id}}</a></td>
+                        <td><a href="{{route('user.show', ['id' => $user->id])}}" >{{$user->name}}</a></td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->phone_number}}</td>
+                        <td>{{$user->type}}</td>
+                        <td><a href="" class="btn btn-warning">Move</a></td>
+                        <td>
+                            <form method="POST" action="{{route('resident.destroy', $apartment->id)}}">
+                                {{csrf_field()}}
+                                <input type="hidden" name="apartment" value="{{$apartment->id}}">
+                                <input type="hidden" name="resident" value="{{$user->id}}">
+                                <button class="btn btn-danger"type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa</button>
+                                {{method_field("DELETE")}}
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach 
+                </table>
+                    @else
+                </table>
+                        <h3 class="col-md-10 text-primary font-weight-bold">Hiện không có cư dân nào</h3>
+                    @endif
+            </div>
         </div>
     </div>
     <div class="show-service">
@@ -150,7 +154,6 @@
                 {{-- {{$services->links()}} --}}
                 @else
                 </table>
-                    <br>
                     <h3 class="col-md-10 text-primary font-weight-bold">Hiện không có dịch vụ nào</h3>
                 @endif
         </div> <!-- end div show part -->
@@ -255,9 +258,11 @@
             </div>
         </div>
     </div>
+    </div>
+    
 @endsection
 
-@section('footer')
+@section('js')
     <script type="text/javascript">
         $('#searchServiceBtn').click(function (){
             $('#searchMessageP').text('');

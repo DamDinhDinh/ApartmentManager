@@ -1,15 +1,19 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('content')
-    <div class="services-control-part">
-        <div class="row" >
-            <h3 style="margin: 22px" class="text-black font-weight-bold">Danh sách dịch vụ đang được sử dụng: </h3>
-            <a style="margin: 22px" class="btn btn-primary" href="{{route('usingService.create')}}" >Thêm dịch vụ cho căn hộ</a>
+@section('title', 'Dịch vụ đang được sử dụng')
+
+@section('content_header')
+    <div class="row content-header">
+        <div class="row pull-right" >
+            <a style="margin-right: 15px" class="btn btn-primary" href="{{route('usingService.create')}}" >Thêm dịch vụ cho căn hộ</a>
         </div>
     </div>
+@endsection
+@section('content')
     <div class="services-show-part">
             @if (count($usingServices) > 0)
-            <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
+            <table id="table-using-services" style="text-align: center !important" class="display table table-striped table-bordered .table-hover thead-dark">
+                <thead>
                 <tr>
                     <th width="5%">ID</th>
                     <th width="15%">Tên dịch vụ</th>
@@ -19,11 +23,13 @@
                     <th width="20%">Ngày bắt đầu</th>
                     <th width="20%">Ngày hết hạn</th>
                     {{-- <th width="5%">Sửa</th> --}}
-                    <th width="5%">Hủy dịch vụ</th>  
+                    <th width="5%">Hủy</th>  
                 </tr>
+                </thead>
                 @php
                     $length = count($usingServices);
                 @endphp
+                <tbody>
                  @if ($length > 0)
                  @for ($i = 0; $i < $length; $i++)
                      @php
@@ -63,6 +69,7 @@
                          </td>
                      </tr>
                  @endfor
+                </tbody>
                 <table>
                 @else
                     <br>
@@ -70,4 +77,14 @@
                 @endif
             @endif
     </div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#table-using-services').DataTable({
+                "bPaginate": false
+            });
+        });
+    </script>
 @endsection

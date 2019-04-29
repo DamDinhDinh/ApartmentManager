@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
 	<div class="form-group">
@@ -15,7 +15,7 @@
 							<button style="margin-top: 5px" type="submit" id="searchServicetBtn" class="btn btn-primary">Tìm</button>
 					</div>
 	</div>
-    <form class="form" method="POST" action="{{route('usingService.store1')}}">
+    <form class="form" method="POST" action="{{route('usingService.store')}}">
         {{csrf_field()}}
         <div class="row form-group">
         	<label class="col-md-2" for="apartmentID">Chọn căn hộ: </label>
