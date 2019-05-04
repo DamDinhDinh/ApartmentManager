@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/service/search', 'ServiceController@search')->name('service.search');
     Route::resource('service', 'ServiceController');
 
+    Route::get('/usingService/create', 'UsingServiceController@create')->name('usingService.create');
     Route::resource('usingService', 'UsingServiceController');
 
     Route::prefix('/usingService/{usingService}')->group(function (){

@@ -31,9 +31,9 @@ class UsingServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($searchApartment = null, $searchService = null)
     {
-        return view('manager.usingService.create');
+        return view('manager.usingService.create')->with(['searchApartment' => $searchApartment, 'searchService' => $searchService]);
     }
 
     /**

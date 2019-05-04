@@ -1,63 +1,70 @@
 @extends('adminlte::page')
 
 @section('content')
-	<div class="form-group">
-			<input type="text" id="searchApartment" class="form-control" placeholder="Nhập tên căn hộ">
-					<p id="searchMessageP"></p>
-					<div class="text-right">
-							<button style="margin-top: 5px" type="submit" id="searchApartmentBtn" class="btn btn-primary">Tìm</button>
-					</div>
-	</div>
-	<div class="form-group">
-			<input type="text" id="searchService" class="form-control" placeholder="Nhập tên dịch vụ:">
-					<p id="searchServiceMessageP"></p>
-					<div class="text-right">
-							<button style="margin-top: 5px" type="submit" id="searchServicetBtn" class="btn btn-primary">Tìm</button>
-					</div>
-	</div>
-    <form class="form" method="POST" action="{{route('usingService.store')}}">
-        {{csrf_field()}}
-        <div class="row form-group">
-        	<label class="col-md-2" for="apartmentID">Chọn căn hộ: </label>
-            <select class="form-control" name="apartment" id="selectApartmentInput">
-              
-            </select>
-				</div>
-
-				<div class="row form-group">
-					<label class="col-md-2" for="serviceID">Chọn dịch vụ: </label>
-							<select class="form-control" name="service" id="selectServiceInput">
+<div style="padding: 10px">
+	
+	<div class="col-md-8">
+			<form class="form" method="POST" action="{{route('usingService.store')}}">
+					{{csrf_field()}}
+					<div class="row form-group">
+						<label for="apartmentID">Chọn căn hộ: </label>
+							<select name="apartment" id="selectApartmentInput">
 								
-							</select>	
-				</div>
-
-				<div class="row form-group">
-					<label class="col-md-2" for="useDate">Ngày bắt đầu:  </label>
-					<input name="start_date" type="date" value="{{date("Y-m-d", time())}}">
-				</div>
-
-				<div class="row form-group">
-					<label for="useValue">Số lượng sử dụng(với dịch vụ có số lượng không đổi)/Trị số ban đầu (với dịch vụ có số lượng thay đổi): </label>
-					<input class="form-control" name="use_value" type="number">
-				</div>
-
-				<div class="row form-group">
-					<label class="col-md-2" for="useDate">Số lượng/Trị số  trên là của tháng:  </label>
-					<input name="use_date" type="date" value="{{date("Y-m-d", time())}}">
-				</div>
-
-					<div class="text-right" style="margin-top: 10px">
-							<button class="btn btn-primary float-right" type="submit">Thực hiện</button>
+							</select>
 					</div>
-    </form>	
-
+	
+					<div class="row form-group">
+						<label  for="serviceID">Chọn dịch vụ: </label>
+								<select  name="service" id="selectServiceInput">
+									
+								</select>	
+					</div>
+	
+					<div class="row form-group">
+						<label  for="useDate">Ngày bắt đầu:  </label>
+						<input  name="start_date" type="date" value="{{date("Y-m-d", time())}}">
+					</div>
+	
+					<div class="row form-group">
+						<label  for="useValue">Số lượng sử dụng(với dịch vụ có số lượng không đổi)/Trị số ban đầu (với dịch vụ có số lượng thay đổi): </label>
+							<input  name="use_value" type="number">
+					</div>
+	
+					<div class="row form-group">
+						<label  for="useDate">Số lượng/Trị số  trên là của tháng:  </label>
+						<input  name="use_date" type="date" value="{{date("Y-m-d", time())}}">
+					</div>
+	
+						<div class="text-right" style="margin-top: 10px">
+								<button class="btn btn-primary float-right" type="submit">Thực hiện</button>
+						</div>
+			</form>	 
+	</div> 
+	<div class="col-md-4">
+			<div class="input-group">
+					<input type="text" id="searchApartment" class="form-control" placeholder="Nhập tên căn hộ" value="{{$searchApartment != null ? $searchApartment : ''}}">
+							<p id="searchMessageP"></p>
+					<span class="input-group-btn">
+							<button style="margin-left: 2px" id="searchApartmentBtn" class="btn btn-primary">Tìm</button>
+					</span>
+			</div>
+			<div class="input-group">
+					<input type="text" id="searchService" class="form-control" placeholder="Nhập tên dịch vụ:" value="{{$searchService != null ? $searchService : ""}}">
+							<p id="searchServiceMessageP"></p>
+					<span class="input-group-btn">
+							<button style="margin-left: 2px"  id="searchServicetBtn" class="btn btn-primary">Tìm</button>
+					</span>
+			</div>
+	</div>
+   
+</div>
 @endsection  
 
-@section('footer')
+@section('js')
 		<script type="text/javascript">
 			$(document).ready(function () {
-				searchApartment("");
-				searchService("");
+				$('#searchApartmentBtn').click();
+				$('#searchServicetBtn').click();
 			});
 
 			$('#searchApartmentBtn').click(function (){

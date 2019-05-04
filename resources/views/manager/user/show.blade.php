@@ -195,24 +195,22 @@
             url = url.replace('{apartment}', apartmentID);
 
             $.ajax({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 url: url,
                 type: "post",
                 data: { 
+                    "_token" : '{{csrf_token()}}',
                     apartment: apartmentID, 
                     user: userID
                 },
                 success: function(response) {
                     if(response.success == true){
                         $('#searchMessageP').removeClass('text-danger').addClass('text-success').text('Thêm vào thành công căn hộ ID: '+apartmentID);
-                    }else if(response.error == true){
-                        if(response.errorType == 1){
+                    }else if(response.failed == true){
+                        if(response.failed_type == 1){
                             $('#searchMessageP').removeClass('text-success').addClass('text-danger').text('Sai thông tin căn hộ hoặc người dùng');
-                        }else if(response.errorType == 2){
+                        }else if(response.failed_type == 2){
                             $('#searchMessageP').removeClass('text-success').addClass('text-danger').text('Người dùng đã thuộc về 1 căn hộ');
-                        }else if(response.errorType == 3){
+                        }else if(response.failed_type == 3){
                             $('#searchMessageP').removeClass('text-success').addClass('text-waring').text('Server không thể xử lý');
                         }
                     }

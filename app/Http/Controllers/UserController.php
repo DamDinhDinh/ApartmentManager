@@ -104,10 +104,11 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->phone_number = $request->phoneNumber;
+        $user->apartment_id = $request->apartmentID;
         $user->email = $request->email;
         $user->type = $request->type;
         
-        $user->password =  Hash::make($request->password);
+        // $user->password =  Hash::make($request->password);
         // 
         if($user->save()){
             return redirect()->route('user.show', $user->id)->with('messages', ['UPDATED user: '.$user->name." phone number: ".$user->phone_number]); 
@@ -139,7 +140,7 @@ class UserController extends Controller
 
     public function search(Request $request){
         $users = User::where('name','LIKE','%'.$request->search.'%')->get();
-        // $users = UserCollection::collection($users);
+        $users = UserCollection::collection($users);
         if(count($users) > 0){
             $response = [
                 'success' => true,

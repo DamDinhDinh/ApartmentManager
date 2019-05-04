@@ -19,8 +19,10 @@ class UserCollection extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone_number' => $this->phone_number,
+            'apartment_name' => $this->apartment != null ? $this->apartment->name : null,
             'href' => [
-                'user_show' => route('api.user.show', ['id' => $this->id])
+                'user_show' => route('api.user.show', ['id' => $this->id]),
+                'apartment_show' => $this->apartment != null ? route('api.apartment.show', ['id' => $this->apartment->id]): null,
             ]
         ];
     }

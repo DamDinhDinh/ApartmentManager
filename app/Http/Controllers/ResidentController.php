@@ -59,16 +59,16 @@ class ResidentController extends Controller
                     return response($response);
                 }else{
                     $response = [
-                        'error' => true,
-                        'errorType' => 3,
+                        'failed' => true,
+                        'failed_type' => 3,
                         'message' => 'Can not excute',
                     ];
                 }
 
             }else{
-                $response = [
-                    'error' => true,
-                    'errorType' => 2,
+                $response = [   
+                    'failed' => true,
+                    'failed_type' => 2,
                     'message' => 'Already have apartment',
                 ];
 
@@ -76,8 +76,8 @@ class ResidentController extends Controller
             }
         }else{
             $response = [
-                'error' => true,
-                'errorType' => 1,
+                'failed' => true,
+                'failed_type' => 1,
                 'message' => 'Invailid user id or apartment id',
             ];
 

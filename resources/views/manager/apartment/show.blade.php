@@ -239,7 +239,7 @@
                                 <th width="20%">Name</th>
                                 <th width="20%">Email</th>
                                 <th width="20%">Phone Number</th>
-                                <th width="10%">Type</th>
+                                <th width="10%">Apartment</th>
                                 <th width="10%">Add</th> 
                             </tr>
                         </thead>
@@ -264,6 +264,7 @@
 
 @section('js')
     <script type="text/javascript">
+
         $('#searchServiceBtn').click(function (){
             $('#searchMessageP').text('');
             $("#tableSearchService tr").remove();
@@ -298,6 +299,9 @@
                             }
                         }else{
                             for(var i = 0; i < data.length; i++){
+                                var url = "{{ route('usingService.create', ['searchApartment' => $apartment->name, 'searchService' => 'searchService'] )}}";
+                                url = url.replace('searchService', data[i].name);
+
                                 $("#tableSearchService").append('<tr><td>'+
                                     data[i].id+
                                     '</td><td>'+
@@ -309,9 +313,10 @@
                                     '</td><td>'+
                                     data[i].price+
                                     '</td><td>'+
-                                    '<button onclick="addServiceFunction('+
-                                    data[i].id+
-                                    ', {{$apartment->id}})" style="margin: 22px" type="button" class="btn btn-primary btnAddResident">Thêm</button>');
+                                    '<a href="'+url+'"class="btn btn-primary">Thêm</a>');
+                                    // '<button onclick="addServiceFunction('+
+                                    // data[i].id+
+                                    // ', {{$apartment->id}})" style="margin: 22px" type="button" class="btn btn-primary btnAddResident">Thêm</button>');
                             }
                         }
                     }else{
@@ -324,39 +329,36 @@
             });
         });
 
-        function addServiceFunction(serviceID, apartmentID){
-            var url = "/apartment/{apartment}/add/usingService";
-            url = url.replace('{apartment}', apartmentID);
+        // function addServiceFunction(serviceID, apartmentID){
+        //     var url = "/apartment/{apartment}/add/usingService";
+        //     url = url.replace('{apartment}', apartmentID);
 
-            $.ajax({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: url,
-                type: "post",
-                data: { 
-                    apartment: apartmentID, 
-                    service: serviceID
-                },
-                success: function(response) {
-                    console.log(response);
-                    if(response.success == true){
-                        $('#searchMessageP').removeClass('text-danger').addClass('text-success').text('Thêm vào thành công dịch vụ: '+serviceID);
-                    }else if(response.error == true){
-                        if(response.errorType == 1){
-                            $('#searchMessageP').removeClass('text-success').addClass('text-danger').text('Sai thông tin căn hộ hoặc dịch vụ');
-                        }else if(response.errorType == 2){
-                            $('#searchMessageP').removeClass('text-success').addClass('text-waring').text('Dịch vụ hiện đã sử dụng');
-                        }else if(response.errorType == 3){
-                            $('#searchMessageP').removeClass('text-success').addClass('text-waring').text('Server không thể xử lý');
-                        }
-                    }
-                },
-                error: function(xhr) {
-                    console.log(xhr);
-                }
-            });
-        }
+        //     $.ajax({
+        //         url: url,
+        //         type: "post",
+        //         data: { 
+        //             apartment: apartmentID, 
+        //             service: serviceID
+        //         },
+        //         success: function(response) {
+        //             console.log(response);
+        //             if(response.success == true){
+        //                 $('#searchMessageP').removeClass('text-danger').addClass('text-success').text('Thêm vào thành công dịch vụ: '+serviceID);
+        //             }else if(response.error == true){
+        //                 if(response.errorType == 1){
+        //                     $('#searchMessageP').removeClass('text-success').addClass('text-danger').text('Sai thông tin căn hộ hoặc dịch vụ');
+        //                 }else if(response.errorType == 2){
+        //                     $('#searchMessageP').removeClass('text-success').addClass('text-waring').text('Dịch vụ hiện đã sử dụng');
+        //                 }else if(response.errorType == 3){
+        //                     $('#searchMessageP').removeClass('text-success').addClass('text-waring').text('Server không thể xử lý');
+        //                 }
+        //             }
+        //         },
+        //         error: function(xhr) {
+        //             console.log(xhr);
+        //         }
+        //     });
+        // }
 
         $('#searchResidentBtn').click(function (){
             $('#searchResidentMessageP').text('');
@@ -384,7 +386,7 @@
                                         '</td><td>'+
                                         data[i].phone_number+
                                         '</td><td>'+
-                                        data[i].type+
+                                        data[i].apartment_name+
                                         '</td><td>'+
                                         '<button onclick="addResidentFunction('+
                                         data[i].id+
@@ -423,24 +425,23 @@
             url = url.replace('{apartment}', apartmentID);
 
             $.ajax({
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 url: url,
                 type: "post",
                 data: { 
+                    "_token": "{{ csrf_token() }}",
                     apartment: apartmentID, 
                     user: userID
                 },
                 success: function(response) {
+                    console.log(response);
                     if(response.success == true){
                         $('#searchResidentMessageP').removeClass('text-danger').addClass('text-success').text('Thêm vào thành công cư dân: '+userID);
-                    }else if(response.error == true){
-                        if(response.errorType == 1){
+                    }else if(response.failed == true){
+                        if(response.failed_type == 1){
                             $('#searchResidentMessageP').removeClass('text-success').addClass('text-danger').text('Sai thông tin căn hộ hoặc người dùng');
-                        }else if(response.errorType == 2){
+                        }else if(response.failed_type == 2){
                             $('#searchResidentMessageP').removeClass('text-success').addClass('text-danger').text('Người dùng đã thuộc về 1 căn hộ');
-                        }else if(response.errorType == 3){
+                        }else if(response.failed_type == 3){
                             $('#searchResidentMessageP').removeClass('text-success').addClass('text-waring').text('Server không thể xử lý');
                         }
                     }
