@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 2',
+    'title' => 'Apartment Manager',
 
     'title_prefix' => '',
 
@@ -124,22 +124,22 @@ return [
         [
             'text'        => 'Danh sách căn hộ',
             'url'         => 'apartment',
-            'icon'        => 'file',
+            'icon'        => 'home',
         ],
         [
             'text'        => 'Danh sách cư dân',
             'url'         => 'user',
-            'icon'        => 'file',
+            'icon'        => 'users',
         ],
         [
             'text'        => 'Danh sách dịch vụ',
             'url'         => 'service',
-            'icon'        => 'file',
+            'icon'        => 'briefcase',
         ],
         [
             'text'        => 'Dịch vụ đang được sử dụng',
             'url'         => 'usingService',
-            'icon'        => 'file',
+            'icon'        => 'business-time',
         ],
         'ACCOUNT SETTINGS',
         [
@@ -190,19 +190,19 @@ return [
                 ],
             ],
         ],
-        'LABELS',
-        [
-            'text'       => 'Important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Warning',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'Information',
-            'icon_color' => 'aqua',
-        ],
+        // 'LABELS',
+        // [
+        //     'text'       => 'Important',
+        //     'icon_color' => 'red',
+        // ],
+        // [
+        //     'text'       => 'Warning',
+        //     'icon_color' => 'yellow',
+        // ],
+        // [
+        //     'text'       => 'Information',
+        //     'icon_color' => 'aqua',
+        // ],
     ],
 
     /*
