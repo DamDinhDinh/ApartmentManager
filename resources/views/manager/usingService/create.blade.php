@@ -3,39 +3,39 @@
 @section('content')
 <div style="padding: 10px">
 	
-	<div class="col-md-8">
+	<div class="form col-md-8">
 			<form class="form" method="POST" action="{{route('usingService.store')}}">
 					{{csrf_field()}}
 					<div class="row form-group">
-						<label for="apartmentID">Chọn căn hộ: </label>
-							<select name="apartment" id="selectApartmentInput">
+						<label class="col-md-4" for="apartmentID">Chọn căn hộ: </label>
+							<select class="col-md-4" name="apartment" id="selectApartmentInput">
 								
 							</select>
 					</div>
 	
 					<div class="row form-group">
-						<label  for="serviceID">Chọn dịch vụ: </label>
-								<select  name="service" id="selectServiceInput">
+						<label class="col-md-4" for="serviceID">Chọn dịch vụ: </label>
+								<select class="col-md-4" name="service" id="selectServiceInput">
 									
 								</select>	
 					</div>
 	
 					<div class="row form-group">
-						<label  for="useDate">Ngày bắt đầu:  </label>
-						<input  name="start_date" type="date" value="{{date("Y-m-d", time())}}">
+						<label class="col-md-4" for="useDate">Ngày bắt đầu:  </label>
+						<input class="col-md-4" name="start_date" type="date" value="{{date("Y-m-d", time())}}">
 					</div>
 	
 					<div class="row form-group">
-						<label  for="useValue">Số lượng sử dụng(với dịch vụ có số lượng không đổi)/Trị số ban đầu (với dịch vụ có số lượng thay đổi): </label>
-							<input  name="use_value" type="number">
+						<label class="col-md-4" data-toggle="useValueTooltip" title="Số lượng sử dụng(với dịch vụ có số lượng không đổi)/Trị số ban đầu (với dịch vụ có số lượng thay đổi)" for="useValue">Số lượng sử dụng/Trị số ban đầu: </label>
+							<input class="col-md-4" name="use_value" type="number">
 					</div>
 	
 					<div class="row form-group">
-						<label  for="useDate">Số lượng/Trị số  trên là của tháng:  </label>
-						<input  name="use_date" type="date" value="{{date("Y-m-d", time())}}">
+						<label class="col-md-4" for="useDate">Số lượng/Trị số  trên là của tháng:  </label>
+						<input class="col-md-4" name="use_date" type="date" value="{{date("Y-m-d", time())}}">
 					</div>
 	
-						<div class="text-right" style="margin-top: 10px">
+						<div class="text-center" style="margin-top: 10px">
 								<button class="btn btn-primary float-right" type="submit">Thực hiện</button>
 						</div>
 			</form>	 
@@ -65,6 +65,7 @@
 			$(document).ready(function () {
 				$('#searchApartmentBtn').click();
 				$('#searchServicetBtn').click();
+				$('[data-toggle="useValueTooltip"]').tooltip(); 
 			});
 
 			$('#searchApartmentBtn').click(function (){

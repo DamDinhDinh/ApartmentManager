@@ -258,6 +258,65 @@
             </div>
         </div>
     </div>
+    {{-- end modal --}}
+
+        <!-- The Modal -->
+    <div class="modal" id="createUsingService">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông tin dịch vụ</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                        <div class="form col-md-8">
+                                <form class="form" method="POST" action="{{route('usingService.store')}}">
+                                        {{csrf_field()}}
+                                        <div class="row form-group">
+                                            <label id="createUsingServiceApartID" class="col-md-4" for="apartmentID">Chọn căn hộ: </label>
+                                                <input class="col-md-4" name="apartment_id" type="number">
+                                        </div>
+                        
+                                        <div class="row form-group">
+                                            <label class="col-md-4" for="serviceID">Chọn dịch vụ: </label>
+                                                <input class="col-md-4" name="service_id" type="number">	
+                                        </div>
+                        
+                                        <div class="row form-group">
+                                            <label class="col-md-4" for="useDate">Ngày bắt đầu:  </label>
+                                            <input class="col-md-4" name="start_date" type="date" value="{{date("Y-m-d", time())}}">
+                                        </div>
+                        
+                                        <div class="row form-group">
+                                            <label class="col-md-4" data-toggle="useValueTooltip" title="Số lượng sử dụng(với dịch vụ có số lượng không đổi)/Trị số ban đầu (với dịch vụ có số lượng thay đổi)" for="useValue">Số lượng sử dụng/Trị số ban đầu: </label>
+                                                <input class="col-md-4" name="use_value" type="number">
+                                        </div>
+                        
+                                        <div class="row form-group">
+                                            <label class="col-md-4" for="useDate">Số lượng/Trị số  trên là của tháng:  </label>
+                                            <input class="col-md-4" name="use_date" type="date" value="{{date("Y-m-d", time())}}">
+                                        </div>
+                        
+                                            <div class="text-center" style="margin-top: 10px">
+                                                    <button class="btn btn-primary float-right" type="submit">Thực hiện</button>
+                                            </div>
+                                </form>	 
+                        </div> 
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{-- end modal --}}
     </div>
     
 @endsection
@@ -277,7 +336,7 @@
                     search: search, 
                 },
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     var data = response.data;
                     if(data != 'none'){
                         if(data.length > 5){
@@ -302,18 +361,22 @@
                                 var url = "{{ route('usingService.create', ['searchApartment' => $apartment->name, 'searchService' => 'searchService'] )}}";
                                 url = url.replace('searchService', data[i].name);
 
-                                $("#tableSearchService").append('<tr><td>'+
+                                window.service = data[i];
+
+                                $("#tableSearchService").append("<tr><td>"+
                                     data[i].id+
-                                    '</td><td>'+
+                                    "</td><td>"+
                                     data[i].name+
-                                    '</td><td>'+
+                                    "</td><td>"+
                                     data[i].payment_method+
-                                    '</td><td>'+
+                                    "</td><td>"+
                                     data[i].use_method+
-                                    '</td><td>'+
+                                    "</td><td>"+
                                     data[i].price+
-                                    '</td><td>'+
-                                    '<a href="'+url+'"class="btn btn-primary">Thêm</a>');
+                                    "</td><td>"+
+                                    "<button class='btn btn-primary' type='button' data-toggle='modal' data-target='#createUsingService' onclick='createUsingService(window.service)'>Thêm</button>"+
+                                    "</td></tr>");
+                                    // '<a href="'+url+'"class="btn btn-primary">Thêm</a>');
                                     // '<button onclick="addServiceFunction('+
                                     // data[i].id+
                                     // ', {{$apartment->id}})" style="margin: 22px" type="button" class="btn btn-primary btnAddResident">Thêm</button>');
@@ -433,7 +496,7 @@
                     user: userID
                 },
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     if(response.success == true){
                         $('#searchResidentMessageP').removeClass('text-danger').addClass('text-success').text('Thêm vào thành công cư dân: '+userID);
                     }else if(response.failed == true){
@@ -450,6 +513,13 @@
                     console.log(xhr);
                 }
             });
+        }
+
+
+        function createUsingService(data){
+            console.log(data);
+
+            $('#createUsingServiceApartID').val(data.id);
         }
     </script>
 @endsection
