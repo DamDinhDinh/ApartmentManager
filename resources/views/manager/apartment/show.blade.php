@@ -3,7 +3,7 @@
 @section('content_header')
 <div class="row">
         <div class="row pull-right" style="margin-right: 15px">
-            <a href="{{route('apartment.edit', $apartment->id)}}" class="btn btn-warning">Sửa thông tin</a>
+            <a href="{{route('apartment.edit', $apartment->id)}}" class="btn btn-primary">Sửa thông tin</a>
             <form style="display: inline-block"  method="POST" action="{{route('apartment.destroy', $apartment->id)}}">
                 {{csrf_field()}}
                 <button class="btn btn-danger" type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa căn hộ</button>
@@ -17,7 +17,7 @@
 <div class="resident-apartment-info">
 <div style="padding: 10px">
     <div class="row">
-        <div class="apartment-info-table col-md-4">
+        <div class="apartment-info-table ">
             <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
                 <tr>
                     <th width="30%">ID: </th>
@@ -33,15 +33,16 @@
                 </tr>
             </table>
         </div>
-        <div class="row col-md-10">
+        <div class="row ">
             <div class="show-user ">
-                <div class="row">
+                <div style="display: inline-block" class="row">
                     <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin người dùng: </h3>
+                </div>
                     <!-- Button to Open the Modal -->
-                    <button  style="margin: 22px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addResidentModal">
+                    <button  style="margin: 22px" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addResidentModal">
                         Thêm cư dân
                     </button>
-                </div>
+
             </div>
             <div class="user-info-table">
                 <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
@@ -65,7 +66,7 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->phone_number}}</td>
                         <td>{{$user->type}}</td>
-                        <td><a href="" class="btn btn-warning">Move</a></td>
+                        <td><a href="" class="btn btn-primary">Move</a></td>
                         <td>
                             <form method="POST" action="{{route('resident.destroy', $apartment->id)}}">
                                 {{csrf_field()}}
@@ -87,14 +88,14 @@
     </div>
     <div class="show-service">
         <div class="head-show-part">
-            <div class="row">
+            <div style="display: inline-block" class="row">
                 <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin dịch vụ: </h3>
-                
-                <!-- Button to Open the Modal -->
-                <button  style="margin: 22px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">
-                Thêm dịch vụ
-                </button>
             </div> <!-- end div row -->
+            <!-- Button to Open the Modal -->
+            <button  style="margin: 22px" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addServiceModal">
+                Thêm dịch vụ
+            </button>
+        </div> <!-- end div head -->
 
             
             <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
@@ -183,7 +184,7 @@
                         </div>  
                     </div>
 
-                    <table class="table table-bordered table-hover" >
+                    <table class="table table-bordered table-hover" id="tableSearchService">
                         <thead>
                             <tr>
                                 <th width="5%">ID</th>
@@ -194,7 +195,7 @@
                                 <th width="35%">Mô tả</th>
                             </tr>
                         </thead>
-                        <tbody id="tableSearchService">
+                        <tbody id="tableSearchServiceBody">
                             <tr>
                             </tr>
                         </tbody>
@@ -232,7 +233,7 @@
                         </div>  
                     </div>
 
-                    <table class="table table-bordered table-hover" >
+                    <table class="table table-bordered table-hover" id="tableSearchResident">
                         <thead>
                             <tr>
                                 <th width="10%">ID</th>
@@ -243,7 +244,7 @@
                                 <th width="10%">Add</th> 
                             </tr>
                         </thead>
-                        <tbody id="tableSearchResident">
+                        <tbody id="tableSearchResidentBody">
                             <tr>
                             </tr>
                         </tbody>
@@ -277,13 +278,15 @@
                                 <form class="form" method="POST" action="{{route('usingService.store')}}">
                                         {{csrf_field()}}
                                         <div class="row form-group">
-                                            <label id="createUsingServiceApartID" class="col-md-4" for="apartmentID">Chọn căn hộ: </label>
-                                                <input class="col-md-4" name="apartment_id" type="number">
+                                            <label id="createUsingServiceApartID" class="col-md-4" for="apartmentID">Căn hộ: </label>
+                                                <input class="col-md-4" id="idApartmentName" name="apartment_name" type="text" readonly>
+                                                <input class="col-md-4" id="idApartmentID" name="apartment" type="number" hidden >
                                         </div>
                         
                                         <div class="row form-group">
-                                            <label class="col-md-4" for="serviceID">Chọn dịch vụ: </label>
-                                                <input class="col-md-4" name="service_id" type="number">	
+                                            <label class="col-md-4" for="serviceID">Dịch vụ: </label>
+                                                <input class="col-md-4" id="idServiceName" name="service_name" type="text"  readonly>
+                                                <input class="col-md-4" id="idServiceID" name="service" type="number" hidden>	
                                         </div>
                         
                                         <div class="row form-group">
@@ -326,7 +329,7 @@
 
         $('#searchServiceBtn').click(function (){
             $('#searchMessageP').text('');
-            $("#tableSearchService tr").remove();
+            $("#tableSearchServiceBody tr").remove();
             var search = $('#searchServiceInput').val().trim();
 
             $.ajax({
@@ -341,7 +344,7 @@
                     if(data != 'none'){
                         if(data.length > 5){
                             for(var i = 0; i < 5; i++){
-                                $("#tableSearchService").append('<tr><td>'+
+                                $("#tableSearchServiceBody").append('<tr><td>'+
                                         data[i].id+
                                         '</td><td>'+
                                         data[i].name+
@@ -361,9 +364,9 @@
                                 var url = "{{ route('usingService.create', ['searchApartment' => $apartment->name, 'searchService' => 'searchService'] )}}";
                                 url = url.replace('searchService', data[i].name);
 
-                                window.service = data[i];
+                                window.service = Array.from(data);
 
-                                $("#tableSearchService").append("<tr><td>"+
+                                $("#tableSearchServiceBody").append("<tr><td>"+
                                     data[i].id+
                                     "</td><td>"+
                                     data[i].name+
@@ -374,7 +377,7 @@
                                     "</td><td>"+
                                     data[i].price+
                                     "</td><td>"+
-                                    "<button class='btn btn-primary' type='button' data-toggle='modal' data-target='#createUsingService' onclick='createUsingService(window.service)'>Thêm</button>"+
+                                    "<button class='btn btn-primary' type='button' data-toggle='modal' data-target='#createUsingService' onclick='createUsingService(window.service["+i+"])'>Thêm</button>"+
                                     "</td></tr>");
                                     // '<a href="'+url+'"class="btn btn-primary">Thêm</a>');
                                     // '<button onclick="addServiceFunction('+
@@ -382,6 +385,10 @@
                                     // ', {{$apartment->id}})" style="margin: 22px" type="button" class="btn btn-primary btnAddResident">Thêm</button>');
                             }
                         }
+
+                        $('#tableSearchService').DataTable({
+                            "bPaginate": false
+                        });
                     }else{
                         $('#searchMessageP').addClass('text-danger').text("Không tìm thấy kêt quả");
                     }
@@ -392,40 +399,9 @@
             });
         });
 
-        // function addServiceFunction(serviceID, apartmentID){
-        //     var url = "/apartment/{apartment}/add/usingService";
-        //     url = url.replace('{apartment}', apartmentID);
-
-        //     $.ajax({
-        //         url: url,
-        //         type: "post",
-        //         data: { 
-        //             apartment: apartmentID, 
-        //             service: serviceID
-        //         },
-        //         success: function(response) {
-        //             console.log(response);
-        //             if(response.success == true){
-        //                 $('#searchMessageP').removeClass('text-danger').addClass('text-success').text('Thêm vào thành công dịch vụ: '+serviceID);
-        //             }else if(response.error == true){
-        //                 if(response.errorType == 1){
-        //                     $('#searchMessageP').removeClass('text-success').addClass('text-danger').text('Sai thông tin căn hộ hoặc dịch vụ');
-        //                 }else if(response.errorType == 2){
-        //                     $('#searchMessageP').removeClass('text-success').addClass('text-waring').text('Dịch vụ hiện đã sử dụng');
-        //                 }else if(response.errorType == 3){
-        //                     $('#searchMessageP').removeClass('text-success').addClass('text-waring').text('Server không thể xử lý');
-        //                 }
-        //             }
-        //         },
-        //         error: function(xhr) {
-        //             console.log(xhr);
-        //         }
-        //     });
-        // }
-
         $('#searchResidentBtn').click(function (){
             $('#searchResidentMessageP').text('');
-            $("#tableSearchResident tr").remove();
+            $("#tableSearchResidentBody tr").remove();
             var search = $('#searchResidentInput').val().trim();
 
             $.ajax({
@@ -440,7 +416,7 @@
                     if(data != 'none'){
                         if(data.length > 5){
                             for(var i = 0; i < 5; i++){
-                                $("#tableSearchResident").append('<tr><td>'+
+                                $("#tableSearchResidentBody").append('<tr><td>'+
                                         data[i].id+
                                         '</td><td>'+
                                         data[i].name+
@@ -457,7 +433,7 @@
                             }
                         }else{
                             for(var i = 0; i < data.length; i++){
-                                $("#tableSearchResident").append('<tr><td>'+
+                                $("#tableSearchResidentBody").append('<tr><td>'+
                                         data[i].id+
                                         '</td><td>'+
                                         data[i].name+
@@ -473,6 +449,10 @@
                                         ', {{$apartment->id}})" style="margin: 22px" type="button" class="btn btn-primary">Thêm</button>');
                             }
                         }
+
+                        $('#tableSearchResident').DataTable({
+                            "bPaginate": false
+                        });
                     }else{
                         $('#searchResidentMessageP').addClass('text-danger').text("Không tìm thấy kêt quả");
                     }
@@ -519,7 +499,10 @@
         function createUsingService(data){
             console.log(data);
 
-            $('#createUsingServiceApartID').val(data.id);
+            document.getElementById("idApartmentName").value = {{$apartment->name}};
+            document.getElementById("idServiceName").value = data.name;
+            document.getElementById("idServiceID").value = data.id;
+            document.getElementById("idApartmentID").value = {{$apartment->id}};
         }
     </script>
 @endsection

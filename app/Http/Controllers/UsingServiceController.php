@@ -192,18 +192,16 @@ class UsingServiceController extends Controller
     public function destroy(Request $request)
     {
         $request->validate([
-            'apartment' => 'required|int',
             'usingService' => 'required|int'
         ]);
 
-        $apartmentID = $request->apartment;
         $id = $request->usingService;
 
         $usingService = UsingService::find($id);
         if(($usingService) != null){
             if($usingService->delete()){
                 if(!$request->ajax()){
-                    return back()->with('messages', ['DELETED service']);
+                    return redirect()->route('usingService.index')->with('messages', ['DELETED service']);
                 }
                 $response = [
                     'success' => true,
@@ -213,7 +211,7 @@ class UsingServiceController extends Controller
                 return response($response);
             }else{
                 if(!$request->ajax()){
-                    return back()->with('failures', ['Can not excute!']);
+                    return redirect()->route('usingService.index')->with('failures', ['Can not excute!']);
                 }
                 $response = [
                     'error' => true,
@@ -223,7 +221,7 @@ class UsingServiceController extends Controller
             }
         }else{
             if(!$request->ajax()){
-                return back()->with('failures', ['Invailid using service ID']);
+                return redirect()->route('usingService.index')->with('failures', ['Invailid using service ID']);
             }
             $response = [
                 'error' => true,

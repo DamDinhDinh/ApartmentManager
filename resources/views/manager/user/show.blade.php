@@ -2,6 +2,11 @@
 
 @section('content_header')
 <div class="row">
+    <div style="display: inline-block" class="head-show-part">
+                <div class="row">
+                    <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin tài khoản: </h3>
+                </div>
+            </div>
     <div class="row pull-right" style="margin-right: 15px">
         <a href="{{route('user.edit', $user->id)}}" class="btn btn-primary">Sửa thông tin</a>
         <form style="display: inline-block"  method="POST" action="{{route('user.destroy', $user->id)}}">
@@ -15,11 +20,7 @@
 
 @section('content')
     <div class="show-user ">
-        <div class="head-show-part">
-            <div class="row">
-                <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin tài khoản: </h3>
-            </div>
-        </div>
+        
         <div class="user-info-table">
             <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
                 <tr>
@@ -56,10 +57,11 @@
     </div>
     <div class="resident-apartment-info">
         <div class="head-show-part">
-            <div class="row">
+            <div style="display: inline-block" class="row">
                 <h3 id="h31" style="margin: 22px" class=" text-black font-weight-bold">Thông tin căn hộ: </h3>
-                <button style="margin: 22px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addToApartmentModal">Thêm vào căn hộ</button>
+                
             </div>
+            <button style="margin: 22px" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addToApartmentModal">Thêm vào căn hộ</button>
         </div>
         <div class="user-info-table">
             <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered table-hover thead-dark">

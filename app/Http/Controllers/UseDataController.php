@@ -95,9 +95,14 @@ class UseDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($usingService, $id)
     {
-        //
+        $useData = UseData::find($id);
+        if($useData != null){
+            return view('manager.useData.show')->with('useData', $useData);
+        }else{
+            return back()->with('failures', ['Invalid USEDATA ID']);
+        }
     }
 
     /**

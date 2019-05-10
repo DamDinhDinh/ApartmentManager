@@ -1,16 +1,21 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
+<div style="padding: 10px">
     <div class="useData-control-part">
-        <div class="row">
-            <h3 style="margin: 22px" class=" text-black font-weight-bold">Lịch sử  sử dụng: </h3>
-            <a style="margin: 22px" class="btn btn-primary" href="{{route('useData.create', ['usingService' => Route::input('usingService')])}}" >Thêm chỉ số tháng mới</a>
+        <div style=" display: inline-block" class="row">
+            <h3 style="display: inline-block" class=" text-black font-weight-bold">Lịch sử  sử dụng: </h3>
+          
+        </div>
+        <div class="row pull-right">
+            <a class="btn btn-primary" href="{{route('useData.create', ['usingService' => Route::input('usingService')])}}" >Thêm chỉ số tháng mới</a>
         </div>
     </div>
     <div class="useData-show-part">
         @if (count($useDataList) > 0)
                 <div class="use-info-table">
-                    <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
+                    <table style="text-align: center !important" class="table table-striped table-bordered .table-hover thead-dark" id="tableUseData">
+                      <thead>
                       <tr>
                         <th>Mã chỉ số: </th>
                         <th>Tháng: </th>
@@ -20,6 +25,8 @@
                         <th>Trạng thái hóa đơn: </th>
                         <th>Ngày cập nhật: </th>
                       </tr>  
+                    </thead>
+                    <tbody>
                         @foreach ($useDataList as $useData)
                           <tr>
                             <td>{{$useData->id}}</td>
@@ -42,11 +49,24 @@
                             
                           </tr>
                         @endforeach
+                        </tbody>
                     @else
+                        </tbody>
                         <p>None to show</p>
                     </table>
                     @endif
         
                   </div>
     </div>
+  </div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+      $(document).ready(function (){
+        $("#tableUseData").DataTable({
+          "bPaginate": false
+        });
+      });
+    </script>
 @endsection

@@ -50,7 +50,7 @@
                         @endphp
                         <td>{{$service->price}}</td>
                         <td>{{$service->description}}</td>
-                        <td><a href="{{route('service.edit', $service->id)}}" class="btn btn-warning">Sửa</a></td>
+                        <td><a href="{{route('service.edit', $service->id)}}" class="btn btn-primary">Sửa</a></td>
                         <td>
                             <form method="POST" action="{{route('service.destroy', ['service' => $service->id, 'resident' => $service->id])}}">
                                 {{csrf_field()}}

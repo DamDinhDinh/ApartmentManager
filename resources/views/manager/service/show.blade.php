@@ -1,12 +1,14 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <div class="head-show-part">
+<div style="padding: 10px">
+    <div style="display: inline-block" class="head-show-part">
             <h3 class=" text-black font-weight-bold">Thông dịch vụ: </h3>
-        <div class="row pull-right">
-            
-        </div>
     </div>
+    <div class="row pull-right">
+        <a href="{{route('service.edit', $service->id)}}" class="btn btn-primary">Sửa</a>
+    </div>
+</div>
 @endsection
 
 @section('content')
