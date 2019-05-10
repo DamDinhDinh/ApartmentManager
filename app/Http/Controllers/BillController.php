@@ -82,21 +82,21 @@ class BillController extends Controller
                     }
                 }else if($bill->status == 1){
                     $request->validate([
-                        'user_id' => 'required|int',
+                        'user_name' => 'required',
                         'paid_method' => 'required|int',
                         'paid_date' => 'required|date'
                     ]);
     
-                    $user = User::find($request->user_id);
+                    // $user = User::find($request->user_id);
     
-                    if($user != null){
+                    if(true){
 
                         // $bill->status = 1;
                         // $bill->user_id = $user->id;
                         // $bill->paid_method = $request->paid_method;
                         // $bill->paid_date = $request->paid_date;
     
-                        $result = $bill->doPayment($user->id, $request->paid_method, $request->paid_date);
+                        $result = $bill->doPayment($request->user_name, $request->paid_method, $request->paid_date);
 
                         if($result){
                             return back()->with('messages', ['Bill created']);
@@ -172,7 +172,7 @@ class BillController extends Controller
 
     public function paid(Request $request){
         $request->validate([
-            'user_id' => 'required|int',
+            'user_name' => 'required',
             'paid_method' => 'required|int',
             'paid_date' => 'required|date'
         ]);
@@ -180,7 +180,7 @@ class BillController extends Controller
         $bill = Bill::find($request->bill);
     
         if($bill != null){
-            $result = $bill->doPayment($request->user_id, $request->paid_method, $request->paid_date);
+            $result = $bill->doPayment($request->user_name, $request->paid_method, $request->paid_date);
 
             if($result){
                 return back()->with('messages', ['Bill paid succes']);

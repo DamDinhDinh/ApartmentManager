@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
-
+<div style="padding: 10px">
     <form class="form" method="POST" action="{{route('bill.paid', ['usingService' => Route::input('usingService'), 'useData' => Route::input('useData'), 'bill' => $bill])}}">
         {{csrf_field()}}
         <div class="row">
@@ -57,8 +57,8 @@
             </div>
         </div>
         <div class="row">
-            <label class="col-md-2"for="userName">ID người thanh toán: </label>
-            <input type="number" class="form-control col-md-10" name="user_id" min="0" oninput="validity.valid||(value='');">
+            <label class="col-md-2"for="userName">Tên người thanh toán: </label>
+            <input type="text" class="form-control col-md-10" name="user_name" oninput="validity.valid||(value='');">
         </div>
         <div class="row form-group">
             <label class="col-md-2" for="useValue">Hình thức thanh toán: </label>
@@ -76,10 +76,10 @@
         </div>
         @method('PUT')
     </form>
-
+</div>
 @endsection 
 
-@section('footer')
+@section('js')
     <script type="text/javascript">
         $(".value-input").change( function (){
             useValue = $("#useValueInput").val();

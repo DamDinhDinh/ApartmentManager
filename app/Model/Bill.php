@@ -21,14 +21,14 @@ class Bill extends Model
         return $this->belongsTo(UsingService::class);
     }
 
-    public function doPayment($userID, $paidMethod, $paidDate){
-        $user = User::find($userID);
+    public function doPayment($paidName, $paidMethod, $paidDate){
+        // $user = User::find($userID);
 
-        if($user != null){//user exist
+        if(true){//user exist
             //first check business logical then do update to bill status
 
             $this->status = 1;
-            $this->user_id = $userID;
+            $this->user_name = $paidName;
             $this->paid_method = $paidMethod;
             $this->paid_date = $paidDate;
 

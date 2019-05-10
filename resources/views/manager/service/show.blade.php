@@ -9,6 +9,7 @@
         <a href="{{route('service.edit', $service->id)}}" class="btn btn-primary">Sửa</a>
     </div>
 </div>
+</div>
 @endsection
 
 @section('content')
