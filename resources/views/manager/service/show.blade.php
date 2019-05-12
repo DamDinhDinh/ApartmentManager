@@ -9,7 +9,6 @@
         <a href="{{route('service.edit', $service->id)}}" class="btn btn-primary">Sửa</a>
     </div>
 </div>
-</div>
 @endsection
 
 @section('content')
@@ -75,36 +74,56 @@
     <div class="apartment-usingservice-info">
         <div class="head-show-part">
             <div class="row">
-                <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông các căn hộ đang sử dụng dịch vụ: </h3>
+                <h3 style="margin: 22px" class=" text-black font-weight-bold">Danh sách các căn hộ đang sử dụng dịch vụ: </h3>
             </div>
         </div>
-        <div class="service-info-table">
-            <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
-                {{-- @if ($service->apartment != null)
-                @php
-                    $apartment = $service->apartment;
-                @endphp
-                <tr>
-                    <th width="30%">ID căn hộ: </th>
-                    <td width="70%"><a href="{{route('apartment.show', ['id' => $apartment->id])}}" >{{$apartment->id}}</a></td>
-                </tr>
-                <tr>
-                    <th width="30%">Tên căn hộ: </th>
-                    <td width="70%"><a href="{{route('apartment.show', ['id' => $apartment->id])}}" >{{$apartment->name}}</a></td>
-                </tr>
-                <tr>
-                    <th width="30%">Địa chỉ: </th>
-                    <td width="70%">{{$apartment->address}}</a></td>
-                </tr>
-            </table>
-            @else --}}
-                <tr>
-                    <th width="30%">ID căn hộ: </th>
-                    <td width="70%">NULL</a></td>
-                </tr>
-            </table>
-            {{-- @endif --}}
+        <div class="apartment-info-table">
+                <table id="table-apartments" style="text-align: center !important" width="100%" class=" table table-striped table-bordered .table-hover thead-dark">
+                        <thead>
+                        <tr>
+                            <th width="10%">ID</th>
+                            <th width="20%">Apartment</th>
+                            <th width="50%">Address</th>
+                            <th width="10%">Edit</th>
+                            <th width="10%">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if ($service->usingServices != null)
+                            @php
+                                $usingServices = $service->usingServices;
+                            @endphp
+                            @foreach ($usingServices as $usingService)
+                            @if ($usingService->apartment != null)
+                                    @php
+                                        $apartment = $usingService->apartment;
+                                    @endphp
+                                    <tr>
+                                            <td><a href="{{route('apartment.show', ['id' => $apartment->id])}}" >{{$apartment->id}}</a></td>
+                                            <td><a href="{{route('apartment.show', ['id' => $apartment->id])}}" >{{$apartment->name}}</a></td>
+                                            <td>{{$apartment->address}}</td>
+                                            {{-- <td><button class="btn btn-primary btn-modal" type="button" data-toggle="modal" data-target="#addResidentModal" onclick="editModal({{json_encode($apartment)}})">Sửa</button></td> --}}
+                                            <td><a href="{{route('apartment.edit', $apartment->id)}}" class="btn btn-primary">Sửa</a></td>
+                                            <td>
+                                                <form method="POST" action="{{route('apartment.destroy', $apartment->id)}}">
+                                                    {{csrf_field()}}
+                                                    <button class="btn btn-danger" type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa</button>
+                                                    {{method_field("DELETE")}}
+                                                </form>
+                                            </td>
+                                        </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                        </table>
+                        {{-- {{$usingServices->links()}}   --}}
+                            @else
+                            </tbody>
+                            </table>
+                                <p>None to show.</p>
+                            @endif
 
+                
         </div>
     </div>
 </div>

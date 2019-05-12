@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\UsingService;
 
 class Service extends Model
 {
@@ -14,4 +15,8 @@ class Service extends Model
         'use_method|number',
         'description|text'
     ];
+
+    public function usingServices(){
+        return $this->hasMany(UsingService::class);
+    }
 }

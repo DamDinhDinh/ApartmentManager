@@ -33,17 +33,20 @@
                 </tr>
             </table>
         </div>
+        {{-- end div apartment info --}}
         <div class="row ">
             <div class="show-user ">
                 <div style="display: inline-block" class="row">
                     <h3 style="margin: 22px" class=" text-black font-weight-bold">Thông tin người dùng: </h3>
                 </div>
+                {{-- end div row --}}
                     <!-- Button to Open the Modal -->
                     <button  style="margin: 22px" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addResidentModal">
                         Thêm cư dân
                     </button>
 
             </div>
+            {{-- end div show --}}
             <div class="user-info-table">
                 <table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
                     <tr>
@@ -84,8 +87,10 @@
                         <h3 class="col-md-10 text-primary font-weight-bold">Hiện không có cư dân nào</h3>
                     @endif
             </div>
+            {{-- end div table --}}
         </div>
-    </div>
+        {{-- end div row user--}}
+
     <div class="show-service">
         <div class="head-show-part">
             <div style="display: inline-block" class="row">
@@ -158,9 +163,6 @@
                     <h3 class="col-md-10 text-primary font-weight-bold">Hiện không có dịch vụ nào</h3>
                 @endif
         </div> <!-- end div show part -->
-    </div> <!-- end div show part -->
-
-
 
     <!-- The Modal -->
     <div class="modal" id="addServiceModal">
@@ -210,6 +212,7 @@
             </div>
         </div>
     </div>
+    {{-- end modal --}}
 
     <!-- The Modal -->
     <div class="modal" id="addResidentModal">
