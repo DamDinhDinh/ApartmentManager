@@ -140,32 +140,32 @@ class ResidentController extends Controller
         if(($user) != null){
             if($user->save()){
                 if(!$request->ajax()){
-                    return redirect()->route('apartment.show', $apartmentID)->with('messages', ['DELETED user']);
+                    return redirect()->route('apartment.show', $apartmentID)->with('messages', [trans('messages.remove_resident')]);
                 }
                 $response = [
                     'success' => true,
-                    'message' => 'Delete service'
+                    'message' => trans('messages.remove_resident')
                 ];
     
                 return response($response);
             }else{
                 if(!$request->ajax()){
-                    return redirect()->route('apartment.show', $apartmentID)->with('failures', ['Can not excute!']);
+                    return redirect()->route('apartment.show', $apartmentID)->with('failures', [trans('messages.cant_excute')]);
                 }
                 $response = [
                     'error' => true,
                     'errorType' => 3,
-                    'message' => 'Can not excute',
+                    'message' =>  trans('messages.cant_excute'),
                 ];
             }
         }else{
             if(!$request->ajax()){
-                return redirect()->route('apartment.show', $apartmentID)-with('failures', ['Invailid user ID']);
+                return redirect()->route('apartment.show', $apartmentID)-with('failures', [ trans('messages.not_exist')]);
             }
             $response = [
                 'error' => true,
                 'errorType' => 1,
-                'message' => 'Invailid service id or apartment id',
+                'message' =>  trans('messages.not_exist'),
             ];
 
             return response($response);

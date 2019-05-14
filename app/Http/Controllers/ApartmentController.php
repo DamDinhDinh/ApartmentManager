@@ -7,7 +7,6 @@ use App\Apartment;
 use App\Http\Requests\ApartmentRequest;
 use DB;
 
-
 class ApartmentController extends Controller
 {
     public function __construct(){
@@ -47,9 +46,9 @@ class ApartmentController extends Controller
         $apartment->address = $request->address;
         
         if($apartment->save()){
-            return redirect()->route('apartment.index')->with('messages', ['CREATED apartment: '.$apartment->name." address: ".$apartment->address]);
+            return redirect()->route('apartment.index')->with('messages', [trans('messages.create_success')]);
         }else{
-            return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
+            return redirect()->route('apartment.index')->with('failures', [trans('messages.cant_excute')]);
         }
     }
 
@@ -65,7 +64,7 @@ class ApartmentController extends Controller
         if($apartment != null){
             return view('manager.apartment.show')->with('apartment', $apartment);
         }else{
-            return redirect()->route('apartment.index')->with('failures', ['Invailid apartment ID']);
+            return redirect()->route('apartment.index')->with('failures', [trans('messages.not_exist')]);
         }
     }
 
@@ -82,7 +81,7 @@ class ApartmentController extends Controller
         if($apartment != null){
             return view('manager.apartment.edit')->with('apartment', $apartment);
         }else{
-            return redirect()->route('apartment.index')->with('failures', ['Invailid apartment ID']);
+            return redirect()->route('apartment.index')->with('failures', [trans('messages.not_exist')]);
         }  
     }
 
@@ -100,9 +99,9 @@ class ApartmentController extends Controller
         $apartment->address = $request->address;
 
         if($apartment->save()){
-            return redirect()->route('apartment.index')->with('messages', ['UPDATED apartment: '.$apartment->name." address: ".$apartment->address]);
+            return redirect()->route('apartment.show', $apartment->id)->with('messages', [trans('messages.update_success')]);
         }else{
-            return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
+            return redirect()->route('apartment.show', $apartment->id)->with('failures', [trans('messages.cant_excute')]);
         }
     }
 
@@ -119,12 +118,12 @@ class ApartmentController extends Controller
 
         if($apartment != null){
             if($apartment->delete()){
-                return redirect()->route('apartment.index')->with('messages', ['DELETED apartment: '.$apartment->name." address ".$apartment->address]);
+                return redirect()->route('apartment.index')->with('messages', [trans('messages.delete_success')]);
             }else{
-                return redirect()->route('apartment.index')->with('failures', ['Can not excute!']);
+                return redirect()->route('apartment.index')->with('failures', [trans('messages.cant_excute')]);
             }
         }else{
-            return redirect()->route('apartment.index')->with('failures', ['Invailid apartment ID']);
+            return redirect()->route('apartment.index')->with('failures', [trans('messages.not_exist')]);
         }
     }
 

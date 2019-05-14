@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
-
+<div style="padding: 10px">
     <form class="form" method="POST" action="{{route('useData.store', ['usingService' => Route::input('usingService')])}}">
         {{csrf_field()}}
         <div class="row">
@@ -17,9 +17,9 @@
             <input name="useDate" type="date" value="{{date("Y-m-d", time())}}">
         </div>
         <div class="text-right" style="margin-top: 10px">
-            <button class="btn btn-primary float-right" type="submit">Thêm người dùng</button>
+            <button class="btn btn-primary float-right" type="submit">Thêm thông số</button>
         </div>
         
     </form>
-
+</div>
 @endsection 
