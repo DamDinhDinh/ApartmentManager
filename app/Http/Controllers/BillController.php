@@ -64,6 +64,8 @@ class BillController extends Controller
             if($useData->bill == null){
                 $bill = new Bill;
                 $bill->using_service_id = $usingService->id;
+                $bill->apartment_id = $usingService->apartment_id;
+                $bill->service_id = $usingService->service_id;
                 $bill->use_data_id = $useData->id;
                 $bill->name = $request->name;
                 $bill->use_date = $useData->use_date;
@@ -76,7 +78,7 @@ class BillController extends Controller
     
                 if($bill->status == 0){
                     if($bill->save()){
-                        return back()->with('messages', ['Bill created']);
+                        return redirect()->route('bill.show', ['usingService' => $bill->using_service_id, 'useData' => $bill->use_data_id, 'bill' => $bill->id])->with('messages', [trans('messages.create_success')]);
                     }else{
                         return back()->with('failures', ['Cannot excute']);
                     }
@@ -121,9 +123,14 @@ class BillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($usingService, $useDatam, $billID)
     {
-        //
+        $bill = Bill::find($billID);
+        if($bill != null){
+            return view('manager.bill.show')->with(['bill' => $bill]);
+        }else{
+            return redirect()->back()->with('messages', [trans('messages.not_exist')]);
+        }
     }
 
     /**

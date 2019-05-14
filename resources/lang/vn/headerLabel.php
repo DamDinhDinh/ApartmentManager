@@ -15,6 +15,6 @@ return [
     'user_info' => 'Thông tin người dùng',
     'service_info' => 'Thông tin dịch vụ',
 
-    
+    'bill_info' => 'Thông tin hóa đơn'
 
 ];

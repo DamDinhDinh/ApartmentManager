@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Model\UseData;
 use App\User;
 use App\UsingService;
+use App\Apartment;
 
 class Bill extends Model
 {
@@ -19,6 +20,10 @@ class Bill extends Model
 
     public function usingService(){
         return $this->belongsTo(UsingService::class);
+    }
+
+    public function apartment(){
+        return $this->belongsTo(Apartment::class);
     }
 
     public function doPayment($paidName, $paidMethod, $paidDate){

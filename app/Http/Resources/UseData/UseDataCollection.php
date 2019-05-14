@@ -23,7 +23,7 @@ class UseDataCollection extends JsonResource
             'bill_status' => $this->bill == null ? 'Chưa có hóa đơn' : ($this->bill->status == 0 ? "Chưa thanh toán" : "Đã thanh toán"),
             'href' => [
                 'use_data_show' => route('api.useData.show', $this->id),
-                'bill_show' => ""
+                'bill_show' => $this->bill != null ? route('api.bill.show', $this->bill->id) : 'Chưa có hóa đơn',
             ],
         ];
     }

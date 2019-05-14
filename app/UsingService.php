@@ -20,4 +20,5 @@ class UsingService extends Model
     public function useDatas(){
         return $this->hasMany(UseData::class)->orderBy('use_date', 'DESC');;
     }
+
 }
