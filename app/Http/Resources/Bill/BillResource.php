@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Bill;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class BillResource extends JsonResource
 {
@@ -30,8 +31,9 @@ class BillResource extends JsonResource
             'bill_sum' => $this->sum,
             'bill_status' => $this->status == 0 ? trans('tableLabel.bill_not_paid_yet') : ($this->status == 1 ? trans('tableLabel.bill_paid') : trans('tableLabel.bill_not_create_yet')),
             'bill_paid_method' => $this->paid_method != null ? $this->paid_method : 'Chưa thanh toán',
-            'bill_paid_date' => $this->paid_date != null ? $this->paid_date : 'Chưa thanh toán',
-            'bill_updated_at' => $this->updated_at,
+            'bill_paid_date' => $this->paid_date != null ? Carbon::parse($this->paid_date)->format('d-m-Y H:i:s') : 'Chưa thanh toán',
+            'bill_user_paid_name' => $this->user_name,
+            'bill_updated_at' => Carbon::parse($this->updated_at)->format('d-m-Y H:i:s'),
 
         ];
     }

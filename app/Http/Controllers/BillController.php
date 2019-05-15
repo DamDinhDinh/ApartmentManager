@@ -189,10 +189,12 @@ class BillController extends Controller
         if($bill != null){
             $result = $bill->doPayment($request->user_name, $request->paid_method, $request->paid_date);
 
-            if($result){
+            if($result == 1){
                 return back()->with('messages', ['Bill paid succes']);
-            }else{
+            }else if($result == -2){
                 return back()->with('failures', ['Cannot excute']);
+            }else if($result == -1){
+                return back()->with('failures', ['Invailid user ID']);
             }
         }else{
             return back()->with('failures', ['Invailid bill ID']);
@@ -203,7 +205,7 @@ class BillController extends Controller
     {
         $usingService = UsingService::find($usingService);
         $useData = UseData::find($useData);
-        $bill = Bill::find($id);
+        
         if($usingService != null && $useData != null && $bill != null){
             return view('manager.bill.payment')->with(['usingService' => $usingService, 'useData' => $useData, 'bill' => $bill]);
         }else{

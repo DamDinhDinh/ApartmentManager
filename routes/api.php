@@ -37,6 +37,7 @@ Route::name('api.')->group(function (){
 
     Route::get('/bill/apartment={apartment}', 'API\BillController@getByApartment')->name('bill.getByApartment');
     Route::get('/bill/{bill}', 'API\BillController@show')->name('bill.show');
+     Route::post('/bill/{bill}', 'API\BillController@paid')->name('bill.paid');
     
 });
 
