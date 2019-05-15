@@ -11,6 +11,7 @@ return [
     |
     */
 
+    'item_deleted' => 'Đã bị xóa',
     'create_success' => 'Thêm thành công!',
     'update_success' => 'Thay đổi thành công!',
     'delete_success' => 'Xóa thành công!',

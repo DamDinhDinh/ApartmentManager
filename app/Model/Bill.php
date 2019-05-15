@@ -7,6 +7,7 @@ use App\Model\UseData;
 use App\User;
 use App\UsingService;
 use App\Apartment;
+use App\Service;
 
 class Bill extends Model
 {
@@ -24,6 +25,10 @@ class Bill extends Model
 
     public function apartment(){
         return $this->belongsTo(Apartment::class);
+    }
+
+    public function service(){
+        return $this->belongsTo(Service::class);
     }
 
     public function doPayment($paidName, $paidMethod, $paidDate){

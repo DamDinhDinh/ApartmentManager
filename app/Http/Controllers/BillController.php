@@ -203,6 +203,7 @@ class BillController extends Controller
 
     public function payment($usingService, $useData, $id)
     {
+        $bill = Bill::find($id);
         $usingService = UsingService::find($usingService);
         $useData = UseData::find($useData);
         

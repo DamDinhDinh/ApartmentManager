@@ -17,7 +17,7 @@ class BillCollection extends JsonResource
         return [
             'id' => $this->id,
             'bill_name' => $this->name,
-            'use_date' => $this->useData->use_date,
+            'use_date' => $this->use_date,
             'service_price' => $this->price,
             'bill_discount' => $this->discount,
             'bill_vat' => $this->vat,

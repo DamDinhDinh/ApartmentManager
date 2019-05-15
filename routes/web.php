@@ -62,7 +62,8 @@ Route::group(['middleware' => 'auth'], function(){
         });
     });
 
-    Route::get('/dataTable/apartment', 'AJAX\ApartmentController@index')->name('ajax.apartment.index');
+    // Route::get('/dataTable/apartment', 'AJAX\ApartmentController@index')->name('ajax.apartment.index');
+    Route::resource('/notification', 'NotificationController');
 });
 
 Auth::routes();

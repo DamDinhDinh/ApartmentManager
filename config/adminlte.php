@@ -141,6 +141,21 @@ return [
             'url'         => 'usingService',
             'icon'        => 'business-time',
         ],
+        [
+            'text' => 'Danh sách hóa đơn',
+            'url' => 'bill',
+            'icon' => 'file-invoice-dollar',
+        ],
+        [
+            'text' => 'Danh sách thông báo',
+            'url' => 'notification',
+            'icon' => 'bell',
+        ],
+        [
+            'text' => 'Danh sách tin nhắn',
+            'url' => 'message',
+            'icon' => 'comments',
+        ],
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',
