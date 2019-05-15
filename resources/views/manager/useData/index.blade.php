@@ -24,6 +24,8 @@
                         <th>Giá trị sử dụng </th>
                         <th>Trạng thái hóa đơn: </th>
                         <th>Ngày cập nhật: </th>
+                        <th>{{ trans('tableLabel.edit') }}</th>
+                        <th>{{ trans('tableLabel.delete') }}</th>
                       </tr>  
                     </thead>
                     <tbody>
@@ -46,7 +48,14 @@
                                 }
                             @endphp
                             <td>{{Carbon\Carbon::parse($useData->created_at)->format('d-m-Y')}}</td>
-                            
+                            <td><a class="btn btn-primary" href="{{route('useData.edit', ['usingService' => $useData->using_service_id, 'useData' => $useData->id])}}">{{ trans('tableLabel.edit') }}</a></td>
+                            <td>
+                              <form method="POST" action="{{route('useData.destroy', ['usingService' => $useData->using_service_id, 'useData' => $useData->id])}}">
+                                  {{csrf_field()}}
+                                  <button class="btn btn-danger"type="submit" onclick="return confirm('Chắc chắn xóa?')">Xóa</button>
+                                  {{method_field("DELETE")}}
+                              </form>
+                            </td>
                           </tr>
                         @endforeach
                         </tbody>

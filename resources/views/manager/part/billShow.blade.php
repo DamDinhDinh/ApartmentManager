@@ -6,11 +6,11 @@
 		<table style="text-align: center !important" class="table table-striped table-bordered .table-hover thead-dark">
 			<tr>
 				<th width="30%">{{ trans('tableLabel.bill_id') }}</th>
-				<td width="70%">{{$bill->id}}</a></td>
+				<td width="70%">{{$bill->id}}</td>
 			</tr>
 			<tr>
 				<th width="30%">{{ trans('tableLabel.bill_name') }}</th>
-				<td width="70%">{{$bill->name}}</a></td>
+				<td width="70%">{{$bill->name}}</td>
             </tr>
             <tr>
 				<th width="30%">{{ trans('tableLabel.apartment_id') }}</th>
@@ -22,47 +22,73 @@
             </tr>
             <tr>
 				<th width="30%">{{ trans('tableLabel.use_data_value') }}</th>
-				<td width="70%">{{$bill->useData->use_value}}</a></td>
+				<td width="70%">{{$bill->useData->use_value}}</td>
             </tr>
             <tr>
 				<th width="30%">{{ trans('tableLabel.use_data_date') }}</th>
-				<td width="70%">{{$bill->useData->use_date}}</a></td>
+				<td width="70%">{{$bill->useData->use_date}}</td>
             </tr>
             <tr>
 				<th width="30%">{{ trans('tableLabel.service_name') }}</th>
-				<td width="70%">{{$bill->usingService->service->name}}</a></td>
+				<td width="70%">{{$bill->usingService->service->name}}</td>
             </tr>
             <tr>
                 <th width="30%">{{ trans('tableLabel.service_price') }}</th>
-                <td width="70%">{{$bill->price}}</a></td>
+                <td width="70%">{{$bill->price}}</td>
             </tr>
             <tr>
                 <th width="30%">{{ trans('tableLabel.bill_discount') }}</th>
-                <td width="70%">{{$bill->discount}}</a></td>
+                <td width="70%">{{$bill->discount}}</td>
             </tr>
             <tr>
                 <th width="30%">{{ trans('tableLabel.bill_vat') }}</th>
-                <td width="70%">{{$bill->vat}}</a></td>
+                <td width="70%">{{$bill->vat}}</td>
             </tr>
             <tr>
                 <th width="30%">{{ trans('tableLabel.bill_sum') }}</th>
-                <td width="70%">{{$bill->sum}}</a></td>
+                <td width="70%">{{$bill->sum}}</td>
             </tr>
             <tr>
                 <th width="30%">{{ trans('tableLabel.bill_status') }}</th>
-                <td width="70%">{{$bill->status}}</a></td>
+                <td width="70%">
+                    @php
+                        if($bill->status == 0){
+                            echo trans('tableLabel.bill_not_paid_yet');
+                        }else if($bill->status == 1){
+                            echo trans('table.bill_paid');
+                        }
+                    @endphp
+                </td>
             </tr>
             <tr>
                 <th width="30%">{{ trans('tableLabel.bill_paid_method') }}</th>
-                <td width="70%">{{$bill->paid_method}}</a></td>
+                <td width="70%">
+                    @php
+                        if($bill->paid_method == 1){
+                            echo trans('tableLabel.bill_paid_by_cash');
+                        }else if($bill->paid_method == 2){
+                            echo trans('tableLabel.bill_paid_by_credit_card');
+                        }else{
+                            echo trans('tableLabel.bill_not_paid_yet');
+                        }
+                    @endphp
+                </td>
             </tr>
             <tr>
                 <th width="30%">{{ trans('tableLabel.bill_paid_date') }}</th>
-                <td width="70%">{{$bill->paid_date}}</a></td>
+                <td width="70%">
+                    @php
+                        if($bill->paid_date != null){
+                            $bill->paid_date;
+                        }else{
+                            echo trans('tableLabel.bill_not_paid_yet');
+                        }
+                    @endphp
+                </td>
             </tr>
             <tr>
                 <th width="30%">{{ trans('tableLabel.bill_updated_at') }}</th>
-                <td width="70%">{{$bill->updated_at}}</a></td>
+                <td width="70%">{{$bill->updated_at}}</td>
             </tr>
 		</table>
 </div>

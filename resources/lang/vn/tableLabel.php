@@ -35,7 +35,11 @@ return [
     'bill_sum' => 'Tổng cộng',
     'bill_status' => 'Trạng thái',
     'bill_paid_method' => 'Hình thức thanh toán',
+    'bill_paid_by_cash' => 'Tiền mặt',
+    'bill_paid_by_credit_card' => 'Thẻ tín dụng',
     'bill_paid_date' => 'Ngày thanh toán',
-    'bill_updated_at' => 'Ngày cập nhật'
-
+    'bill_updated_at' => 'Ngày cập nhật',
+    'bill_paid' => 'Đã thanh toán',
+    'bill_not_paid_yet' => 'Chưa thanh toán',
+    'bill_not_create_yet' => 'Chưa có hóa đơn',
 ];

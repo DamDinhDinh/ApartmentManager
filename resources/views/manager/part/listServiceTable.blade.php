@@ -3,7 +3,7 @@
 		<h3 class=" text-black font-weight-bold">{{ trans('headerLabel.service_info') }}</h3>
 	</div> <!-- end div row -->
 
-	<table style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
+	<table style="text-align: center !important" class="table table-striped table-bordered .table-hover thead-dark">
 		<tr>
 			<th width="5%">ID</th>
 			<th width="20%">Tên dịch vụ</th>

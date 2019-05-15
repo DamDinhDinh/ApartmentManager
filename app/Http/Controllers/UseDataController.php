@@ -111,9 +111,15 @@ class UseDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($usingService, $id)
     {
-        //
+        $useData = UseData::find($id);
+
+        if($useData != null){
+            return view('manager.useData.edit')->with(['useData' => $useData]);
+        }else{
+            return redirect()->back()->with('messages', [trans('messages.not_exist')]);
+        }
     }
 
     /**

@@ -17,4 +17,6 @@ return [
     'use_date' => 'Số lượng/Trị số  trên là của tháng: ',
     'use_value' => 'Số lượng sử dụng/Trị số ban đầu: ',
 
+    'submit' => 'Xác nhận',
+
 ];

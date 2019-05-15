@@ -1,9 +1,9 @@
 <div class="list-user-table">
     <div style="display: inline-block" class="row">
-        <h3 name="table-name" class=" text-black font-weight-bold">{{ trans('headerLabel.user_info') }}</h3>
+        <h3 class=" text-black font-weight-bold">{{ trans('headerLabel.user_info') }}</h3>
     </div>
     {{-- end div row --}}
-            <table width="100%" style="text-align: center !important" class="col-md-10 table table-striped table-bordered .table-hover thead-dark">
+            <table width="100%" style="text-align: center !important" class="table table-striped table-bordered .table-hover thead-dark">
                 <tr>
                     <th width="10%">ID</th>
                     <th width="20%">Name</th>
@@ -30,7 +30,7 @@
                             {{csrf_field()}}
                             <input type="hidden" name="apartment" value="{{$apartment->id}}">
                             <input type="hidden" name="resident" value="{{$user->id}}">
-                            <button class="btn btn-danger"type="submit" onclick="return confirm('Loại bỏ người dùng khỏi căn hộ?')">Loại bỏ</button>
+                            <button class="btn btn-danger" type="submit" onclick="return confirm('Loại bỏ người dùng khỏi căn hộ?')">Loại bỏ</button>
                             {{method_field("DELETE")}}
                         </form>
                     </td>
