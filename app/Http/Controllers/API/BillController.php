@@ -74,31 +74,42 @@ class BillController extends Controller
 
     
         if($bill != null){
-            $result = $bill->doPayment($request->user_name, 2, date("Y-m-d h:i:s"));
+            if($bill->status == 0){
+                $result = $bill->doPayment($request->user_name, 2, date("Y-m-d h:i:s"));
 
-            if($result == 1){
-                $response = [
-                    'success' => true,
-                    'message' => 'Bill paid complete',
-                    'data' => new BillResource($bill)
-                ];
-
-                return $response;
-            }else if($result == -2){
-                $response = [
-                    'failed' => true,
-                    'message' => trans('messages.cant_excute'),
-                ];
+                if($result == 1){
+                    $response = [
+                        'success' => true,
+                        'message' => 'Bill paid complete',
+                        'data' => new BillResource($bill)
+                    ];
     
-                return $response;
-            }else if($result == -1){
+                    return $response;
+                }else if($result == -2){
+                    $response = [
+                        'failed' => true,
+                        'message' => trans('messages.cant_excute'),
+                    ];
+        
+                    return $response;
+                }else if($result == -1){
+                    $response = [
+                        'failed' => true,
+                        'message' => 'Invailid user name',
+                    ];
+        
+                    return $response;
+                }
+            }else{
                 $response = [
                     'failed' => true,
-                    'message' => 'Invailid user name',
+                    'message' => 'Bill paid already',
                 ];
     
                 return $response;
             }
+
+           
         }else{
             $response = [
                 'failed' => true,
