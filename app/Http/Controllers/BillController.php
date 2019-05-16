@@ -7,6 +7,7 @@ use App\UsingService;
 use App\Model\UseData;
 use App\Model\Bill;
 use App\User;
+use Input;
 
 class BillController extends Controller
 {
@@ -30,10 +31,11 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($usingService, $useData)
+    public function create()
     {
-        $usingService = UsingService::find($usingService);
-        $useData = UseData::find($useData);
+        
+        $usingService = UsingService::find(Input::get('usingService'));
+        $useData = UseData::find(Input::get('useData'));
         if(($usingService && $useData) != null){
             return view('manager.bill.create')->with(['usingService' => $usingService, 'useData' => $useData]);
         }else{
