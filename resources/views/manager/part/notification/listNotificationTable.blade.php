@@ -16,7 +16,6 @@
                     <tr>
                         <td><a href="{{route('notification.show', ['id' => $notification->id])}}">{{$notification->id}}</a></td>
                         <td><a href="{{route('notification.show', ['id' => $notification->id])}}">{{$notification->title}}</a></td>
-                        <td>{{$notification->title}}</td>
                         <td>{{ CarBon\Carbon::parse($notification->updated_at)->format('H:m d-m-Y')}}</td>
                         <td><a href="{{route('notification.edit', ['id' => $notification->id])}}" class="btn btn-primary">{{ trans('buttonName.edit') }}</a></td>
                         <td>

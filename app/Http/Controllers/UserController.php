@@ -108,8 +108,8 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->type = $request->type;
         
-        // $user->password =  Hash::make($request->password);
-        // 
+        $user->password =  Hash::make($request->password);
+        
         if($user->save()){
             return redirect()->route('user.show', $user->id)->with('messages', ['UPDATED user: '.$user->name." phone number: ".$user->phone_number]); 
         }else{

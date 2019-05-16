@@ -28,8 +28,8 @@ class UserRequest extends FormRequest
             'phoneNumber' => 'required',
             'email' => 'required',
             'type' => 'required',
-            // 'password' => 'required',
-            // 'repeatPassword' => 'required|same:password'
+            'password' => 'required',
+            'repeatPassword' => 'required|same:password'
         ];
     }
 }

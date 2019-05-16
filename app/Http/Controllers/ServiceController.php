@@ -43,6 +43,7 @@ class ServiceController extends Controller
     {
         $service = new Service;
         $service->name = $request->name;
+        $service->type = $request->type;
         $service->price = $request->price;
         $service->payment_method = $request->payment_method;
         $service->use_method = $request->use_method;

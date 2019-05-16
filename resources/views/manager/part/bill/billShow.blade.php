@@ -104,7 +104,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th width="30%">{{ trans('tableLabel.bill_updated_at') }}</th>
+                        <th width="30%">{{ trans('tableLabel.updated_at') }}</th>
                         <td width="70%">{{Carbon\Carbon::parse($bill->updated_at)->format('H:m d-m-Y')}}</td>
                     </tr>
                 </table>
