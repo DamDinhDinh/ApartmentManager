@@ -37,7 +37,9 @@ Route::name('api.')->group(function (){
 
     Route::get('/bill/apartment={apartment}', 'API\BillController@getByApartment')->name('bill.getByApartment');
     Route::get('/bill/{bill}', 'API\BillController@show')->name('bill.show');
-     Route::post('/bill/{bill}/paid', 'API\BillController@paid')->name('bill.paid');
-    
+    Route::post('/bill/{bill}/paid', 'API\BillController@paid')->name('bill.paid');
+
+    Route::get('/notification', 'API\NotificationController@index')->name('notification.index');
+    Route::get('/notification/{notification}', 'API\NotificationController@show')->name('notification.show');
 });
 
