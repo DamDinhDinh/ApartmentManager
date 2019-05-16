@@ -10,6 +10,9 @@ use App\User;
 
 class BillController extends Controller
 {
+    public function __construct(){
+        $this->middleware('manager');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +20,9 @@ class BillController extends Controller
      */
     public function index()
     {
-        //
+        $bills = Bill::orderBy('use_date', 'ASC')->paginate(10);
+
+        return view('manager.bill.index')->with('bills', $bills);
     }
 
     /**
@@ -78,7 +83,7 @@ class BillController extends Controller
     
                 if($bill->status == 0){
                     if($bill->save()){
-                        return redirect()->route('bill.show', ['usingService' => $bill->using_service_id, 'useData' => $bill->use_data_id, 'bill' => $bill->id])->with('messages', [trans('messages.create_success')]);
+                        return redirect()->route('bill.show', ['bill' => $bill->id])->with('messages', [trans('messages.create_success')]);
                     }else{
                         return back()->with('failures', ['Cannot excute']);
                     }
@@ -123,7 +128,7 @@ class BillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($usingService, $useDatam, $billID)
+    public function show($billID)
     {
         $bill = Bill::find($billID);
         if($bill != null){
@@ -141,7 +146,13 @@ class BillController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bill = Bill::find($id);
+        
+        if($bill != null){
+            return view('manager.bill.edit')->with(['bill' => $bill]);
+        }else{
+            return back()->with('failures', ['Invailid bill ID']);
+        }
     }
 
     /**
@@ -153,7 +164,54 @@ class BillController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'discount' => 'required',
+            'vat' => 'required',
+            'status' => 'required',
+        ]);
+
+        $bill = Bill::find($id);
+
+        if($bill != null){
+            $bill->discount = $request->discount;
+            $bill->vat = $request->vat;
+            $bill->sum = $this->calculate($bill->use_value, $bill->price, $bill->discount, $bill->vat);
+            if($request->status == 0){
+                if($bill->save()){
+                    return redirect()->route('bill.show', ['bill' => $bill->id])->with('messages', [trans('messages.update_success')]);
+                }else{
+                    return back()->with('failures', ['Cannot excute']);
+                }
+            }else if($bill->status == 1){
+                $request->validate([
+                    'user_name' => 'required',
+                    'paid_method' => 'required|int',
+                    'paid_date' => 'required|date'
+                ]);
+    
+                // $user = User::find($request->user_id);
+    
+                if(true){
+    
+                    // $bill->status = 1;
+                    // $bill->user_id = $user->id;
+                    // $bill->paid_method = $request->paid_method;
+                    // $bill->paid_date = $request->paid_date;
+    
+                    $result = $bill->doPayment($request->user_name, $request->paid_method, $request->paid_date);
+    
+                    if($result){
+                        return redirect()->route('bill.show', $bill->id)->with('messages', [trans('messages.update_success')]);
+                    }else{
+                        return back()->with('failures', ['Cannot excute']);
+                    }
+                }else{
+                    return back()->with('failures', ['Invailid user ID']);
+                }
+            }
+        }else{
+            return back()->with('failures', ['Invailid bill ID']);
+        }
     }
 
     /**
@@ -164,11 +222,21 @@ class BillController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bill = Bill::find($id);
+
+        if($bill != null){
+            if($bill->delete()){
+                return redirect()->route('bill.index')->with('messages', [trans('messages.delete_success')]);
+            }else{
+                return redirect()->route('bill.index')->with('failures', [trans('messages.cant_excute')]);
+            }
+        }else{
+            return redirect()->route('bill.index')->with('failures', [trans('messages.not_exist')]);
+        }
     }
 
 
-    private function calculate($amount, $price, $vat, $discount){
+    private function calculate($amount, $price, $discount, $vat){
         $cost = $amount * $price;
         $cost = $cost - $cost * $discount/100;
         $cost = $cost + $cost * $vat/100;
@@ -190,7 +258,7 @@ class BillController extends Controller
             $result = $bill->doPayment($request->user_name, $request->paid_method, $request->paid_date);
 
             if($result == 1){
-                return back()->with('messages', ['Bill paid succes']);
+                return redirect()->route('bill.show', $bill->id)->with('messages', ['Bill paid succes']);
             }else if($result == -2){
                 return back()->with('failures', ['Cannot excute']);
             }else if($result == -1){
@@ -201,16 +269,14 @@ class BillController extends Controller
         }
     }
 
-    public function payment($usingService, $useData, $id)
+    public function payment($id)
     {
         $bill = Bill::find($id);
-        $usingService = UsingService::find($usingService);
-        $useData = UseData::find($useData);
         
-        if($usingService != null && $useData != null && $bill != null){
-            return view('manager.bill.payment')->with(['usingService' => $usingService, 'useData' => $useData, 'bill' => $bill]);
+        if($bill != null){
+            return view('manager.bill.payment')->with(['bill' => $bill]);
         }else{
-            return back()->with('failures', ['Invailid using service ID or use data ID']);
+            return back()->with('failures', ['Invailid bill ID']);
         }
     }
 }

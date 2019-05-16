@@ -26,7 +26,7 @@ return [
 
     'use_data_id' => 'Mã thông số',
     'use_data_value' => 'Giá trị thông số',
-    'use_data_date' => 'Ngày tính',
+    'use_data_date' => 'Thông số tháng',
 
     'bill_id' => 'Mã hóa đơn',
     'bill_name' => 'Tên hóa đơn',
@@ -42,4 +42,5 @@ return [
     'bill_paid' => 'Đã thanh toán',
     'bill_not_paid_yet' => 'Chưa thanh toán',
     'bill_not_create_yet' => 'Chưa có hóa đơn',
+    'bill_user_paid' => 'Người thanh toán',
 ];

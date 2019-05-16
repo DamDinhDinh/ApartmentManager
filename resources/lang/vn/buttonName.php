@@ -15,6 +15,6 @@ return [
     'edit' => 'Sửa',
     'delete' => 'Xóa',
     'submit' => 'Xác nhận',
-
+    'paid' => 'Thanh toán'
     
 ];
