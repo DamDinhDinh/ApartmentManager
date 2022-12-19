@@ -2,7 +2,7 @@ ApartmentManager
 
 My university Web project for managing Apartment, Web UI for Administrator and RestAPI for mobile client.
 
-Below are sequence diagram, class diagram, database diagram, Web UI
+Below are sequence diagram, class diagram, database diagram, Administrator Web UI
 
 ![image](https://user-images.githubusercontent.com/25581547/208481406-ef1b2bdb-ba20-429b-8522-afcdaa67d92d.png)
 
